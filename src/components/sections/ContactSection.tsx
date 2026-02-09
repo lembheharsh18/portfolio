@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { motion } from 'framer-motion'
-import { Github, Linkedin, Mail, Phone, Copy, Check } from 'lucide-react'
+import { Github, Linkedin, Mail, Phone, Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react'
 
 interface FloatingIcon {
   id: string
@@ -17,26 +17,35 @@ interface FloatingIcon {
 }
 
 const ICONS_DATA = [
-  { id: 'github', icon: Github, label: 'GitHub', href: '#' },
-  { id: 'linkedin', icon: Linkedin, label: 'LinkedIn', href: '#' },
+  { id: 'github', icon: Github, label: 'GitHub', href: 'https://github.com/lembheharsh18' },
+  { id: 'linkedin', icon: Linkedin, label: 'LinkedIn', href: 'https://linkedin.com/in/lembheharsh18' },
   { id: 'email', icon: Mail, label: 'Email', href: 'mailto:lembheharsh0508@gmail.com' },
 ]
+
+type FormStatus = 'idle' | 'loading' | 'success' | 'error'
 
 export default function ContactSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [isMouseInArea, setIsMouseInArea] = useState(false)
   const [icons, setIcons] = useState<FloatingIcon[]>([])
-  const [copied, setCopied] = useState(false)
-  const [showPhone, setShowPhone] = useState(false)
   const animationRef = useRef<number>()
+
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  })
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle')
+  const [formError, setFormError] = useState('')
 
   // Initialize icons with random positions
   useEffect(() => {
     const initialIcons: FloatingIcon[] = ICONS_DATA.map((data, i) => ({
       ...data,
-      x: 150 + Math.cos((i * 2 * Math.PI) / ICONS_DATA.length) * 120,
-      y: 150 + Math.sin((i * 2 * Math.PI) / ICONS_DATA.length) * 120,
+      x: 100 + Math.cos((i * 2 * Math.PI) / ICONS_DATA.length) * 80,
+      y: 100 + Math.sin((i * 2 * Math.PI) / ICONS_DATA.length) * 80,
       vx: (Math.random() - 0.5) * 0.5,
       vy: (Math.random() - 0.5) * 0.5,
       angle: Math.random() * Math.PI * 2,
@@ -49,47 +58,36 @@ export default function ContactSection() {
     setIcons((prevIcons) =>
       prevIcons.map((icon) => {
         let { x, y, vx, vy, angle } = icon
-        const containerSize = 300
-        const iconSize = 60
+        const containerSize = 200
+        const iconSize = 48
 
         if (isMouseInArea) {
-          // Orbit around cursor
           const dx = mousePos.x - x
           const dy = mousePos.y - y
           const distance = Math.sqrt(dx * dx + dy * dy)
-          const orbitRadius = 80
+          const orbitRadius = 60
 
-          if (distance < 150) {
-            // Calculate orbit position
+          if (distance < 120) {
             angle += 0.03
             const targetX = mousePos.x + Math.cos(angle) * orbitRadius
             const targetY = mousePos.y + Math.sin(angle) * orbitRadius
-
-            // Smoothly move towards orbit position
             x += (targetX - x) * 0.05
             y += (targetY - y) * 0.05
           } else {
-            // Float towards cursor area
             vx += dx * 0.0001
             vy += dy * 0.0001
             x += vx
             y += vy
           }
         } else {
-          // Aimless floating
           x += vx
           y += vy
-
-          // Add slight randomness
           vx += (Math.random() - 0.5) * 0.02
           vy += (Math.random() - 0.5) * 0.02
-
-          // Damping
           vx *= 0.99
           vy *= 0.99
         }
 
-        // Bounce off walls
         if (x < iconSize / 2 || x > containerSize - iconSize / 2) {
           vx *= -0.8
           x = Math.max(iconSize / 2, Math.min(containerSize - iconSize / 2, x))
@@ -122,10 +120,52 @@ export default function ContactSection() {
     })
   }
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('lembheharsh0508@gmail.com')
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }))
+    setFormError('')
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      setFormError('Please fill in all fields')
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setFormError('Please enter a valid email address')
+      return
+    }
+
+    setFormStatus('loading')
+
+    // Simulate form submission (replace with actual API call)
+    // For production, use Formspree, EmailJS, or your own backend
+    try {
+      // Example: Using Formspree
+      // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData),
+      // })
+      
+      // Simulated success
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+      setFormStatus('success')
+      setFormData({ name: '', email: '', message: '' })
+      
+      // Reset status after 5 seconds
+      setTimeout(() => setFormStatus('idle'), 5000)
+    } catch {
+      setFormStatus('error')
+      setFormError('Something went wrong. Please try again.')
+      setTimeout(() => setFormStatus('idle'), 5000)
+    }
   }
 
   return (
@@ -135,7 +175,7 @@ export default function ContactSection() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-electric-purple/5 rounded-full blur-[200px]" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
           className="text-center mb-16"
@@ -145,127 +185,199 @@ export default function ContactSection() {
           transition={{ duration: 0.6 }}
         >
           <span className="text-neon-cyan text-sm uppercase tracking-[0.3em] mb-4 block">
-            Let&apos;s Talk
+            Let's Talk
           </span>
+          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
+            <span className="gradient-text">Get In Touch</span>
+          </h2>
+          <p className="text-gray-400 max-w-xl mx-auto">
+            Have a project in mind? Let's create something amazing together.
+          </p>
         </motion.div>
 
-        {/* Gravity Well Container */}
-        <div className="flex flex-col items-center gap-12">
-          {/* Interactive Area */}
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
+          {/* Contact Form */}
           <motion.div
-            ref={containerRef}
-            className="relative w-[300px] h-[300px] rounded-full"
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsMouseInArea(true)}
-            onMouseLeave={() => setIsMouseInArea(false)}
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            {/* Gravity well visual */}
-            <div className="absolute inset-0 rounded-full border border-white/5" />
-            <div className="absolute inset-8 rounded-full border border-white/5" />
-            <div className="absolute inset-16 rounded-full border border-white/10" />
+            <form onSubmit={handleSubmit} className="glass rounded-2xl p-8">
+              <h3 className="font-heading text-xl font-semibold mb-6 text-white">Send a Message</h3>
+              
+              {/* Name Input */}
+              <div className="mb-5">
+                <label htmlFor="name" className="block text-sm text-gray-400 mb-2">
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all"
+                  placeholder="John Doe"
+                  disabled={formStatus === 'loading'}
+                />
+              </div>
 
-            {/* Center Text */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <h2 className="font-heading text-4xl md:text-5xl font-bold gradient-text">
-                Connect
-              </h2>
-            </div>
+              {/* Email Input */}
+              <div className="mb-5">
+                <label htmlFor="email" className="block text-sm text-gray-400 mb-2">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all"
+                  placeholder="john@example.com"
+                  disabled={formStatus === 'loading'}
+                />
+              </div>
 
-            {/* Floating Icons */}
-            {icons.map((icon) => (
-              <motion.a
-                key={icon.id}
-                href={icon.href}
-                className="absolute w-14 h-14 rounded-xl glass flex items-center justify-center cursor-pointer group"
-                style={{
-                  left: icon.x - 28,
-                  top: icon.y - 28,
-                }}
-                whileHover={{ scale: 1.2 }}
-                onClick={icon.id === 'email' ? (e) => { e.preventDefault(); handleCopyEmail(); } : undefined}
+              {/* Message Input */}
+              <div className="mb-6">
+                <label htmlFor="message" className="block text-sm text-gray-400 mb-2">
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  rows={5}
+                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all resize-none"
+                  placeholder="Tell me about your project..."
+                  disabled={formStatus === 'loading'}
+                />
+              </div>
+
+              {/* Error Message */}
+              {formError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-red-400 text-sm mb-4"
+                >
+                  <AlertCircle className="w-4 h-4" />
+                  {formError}
+                </motion.div>
+              )}
+
+              {/* Success Message */}
+              {formStatus === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center gap-2 text-green-400 text-sm mb-4"
+                >
+                  <CheckCircle className="w-4 h-4" />
+                  Message sent successfully! I'll get back to you soon.
+                </motion.div>
+              )}
+
+              {/* Submit Button */}
+              <motion.button
+                type="submit"
+                disabled={formStatus === 'loading'}
+                className="w-full py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-electric-purple text-void font-semibold flex items-center justify-center gap-2 hover:shadow-neon-cyan transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={{ scale: formStatus === 'loading' ? 1 : 1.02 }}
+                whileTap={{ scale: formStatus === 'loading' ? 1 : 0.98 }}
               >
-                <icon.icon className="w-6 h-6 text-white group-hover:text-neon-cyan transition-colors" />
-                
-                {/* Tooltip */}
-                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
-                  {icon.label}
-                </span>
-              </motion.a>
-            ))}
+                {formStatus === 'loading' ? (
+                  <>
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-5 h-5" />
+                    Send Message
+                  </>
+                )}
+              </motion.button>
+            </form>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Right Side - Floating Icons & Info */}
           <motion.div
-            className="flex flex-col items-center gap-6"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="flex flex-col items-center gap-8"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            {/* Email */}
-            <button
-              onClick={handleCopyEmail}
-              className="flex items-center gap-3 px-6 py-3 glass rounded-full group hover:border-neon-cyan/50 transition-colors"
-            >
-              <Mail className="w-5 h-5 text-neon-cyan" />
-              <span className="text-gray-300">lembheharsh0508@gmail.com</span>
-              {copied ? (
-                <Check className="w-4 h-4 text-green-400" />
-              ) : (
-                <Copy className="w-4 h-4 text-gray-500 group-hover:text-neon-cyan transition-colors" />
-              )}
-            </button>
-
-            {/* Phone - Reveal on Hover */}
+            {/* Gravity Well */}
             <div
-              className="relative"
-              onMouseEnter={() => setShowPhone(true)}
-              onMouseLeave={() => setShowPhone(false)}
+              ref={containerRef}
+              className="relative w-[200px] h-[200px] rounded-full"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={() => setIsMouseInArea(true)}
+              onMouseLeave={() => setIsMouseInArea(false)}
             >
-              <div className="flex items-center gap-3 px-6 py-3 glass rounded-full cursor-pointer">
-                <Phone className="w-5 h-5 text-electric-purple" />
-                <span className="text-gray-300">
-                  {showPhone ? '+91 8625923006' : 'Hover to reveal phone'}
-                </span>
+              <div className="absolute inset-0 rounded-full border border-white/5" />
+              <div className="absolute inset-6 rounded-full border border-white/5" />
+              <div className="absolute inset-12 rounded-full border border-white/10" />
+
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-heading text-xl font-bold gradient-text">Connect</span>
               </div>
+
+              {icons.map((icon) => (
+                <motion.a
+                  key={icon.id}
+                  href={icon.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute w-12 h-12 rounded-xl glass flex items-center justify-center group"
+                  style={{
+                    left: icon.x - 24,
+                    top: icon.y - 24,
+                  }}
+                  whileHover={{ scale: 1.2 }}
+                >
+                  <icon.icon className="w-5 h-5 text-white group-hover:text-neon-cyan transition-colors" />
+                  <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                    {icon.label}
+                  </span>
+                </motion.a>
+              ))}
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-4 mt-4">
+            {/* Contact Info Cards */}
+            <div className="space-y-4 w-full max-w-sm">
               <a
-                href="#"
-                className="flex items-center gap-2 text-gray-400 hover:text-neon-cyan transition-colors"
+                href="mailto:lembheharsh0508@gmail.com"
+                className="flex items-center gap-4 p-4 glass rounded-xl hover:border-neon-cyan/30 transition-all group"
               >
-                <Github className="w-5 h-5" />
-                <span className="text-sm">GitHub</span>
+                <div className="w-10 h-10 rounded-lg bg-neon-cyan/10 flex items-center justify-center">
+                  <Mail className="w-5 h-5 text-neon-cyan" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Email</p>
+                  <p className="text-gray-300 group-hover:text-neon-cyan transition-colors">
+                    lembheharsh0508@gmail.com
+                  </p>
+                </div>
               </a>
-              <span className="text-gray-600">•</span>
-              <a
-                href="#"
-                className="flex items-center gap-2 text-gray-400 hover:text-neon-cyan transition-colors"
-              >
-                <Linkedin className="w-5 h-5" />
-                <span className="text-sm">LinkedIn</span>
-              </a>
+
+              <div className="flex items-center gap-4 p-4 glass rounded-xl">
+                <div className="w-10 h-10 rounded-lg bg-electric-purple/10 flex items-center justify-center">
+                  <Phone className="w-5 h-5 text-electric-purple" />
+                </div>
+                <div>
+                  <p className="text-xs text-gray-500">Phone</p>
+                  <p className="text-gray-300">+91 8625923006</p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
-
-        {/* Footer */}
-        <motion.div
-          className="mt-24 pt-8 border-t border-white/10 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-500 text-sm">
-            © {new Date().getFullYear()} Harsh Lembhe. Architecting Intelligence.
-          </p>
-        </motion.div>
       </div>
     </section>
   )
