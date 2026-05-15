@@ -6,6 +6,7 @@ import { Github, Linkedin, Mail, Heart, ArrowUp } from 'lucide-react'
 const footerLinks = [
   { name: 'Home', href: '#home' },
   { name: 'About', href: '#about' },
+  { name: 'Profiles', href: '#profiles' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
   { name: 'Experience', href: '#experience' },

@@ -1,48 +1,44 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Award, Trophy, Star, ExternalLink, CheckCircle } from 'lucide-react'
+import { Trophy, Medal, Target, Crown } from 'lucide-react'
 
 const achievements = [
   {
-    type: 'certification',
-    title: 'AWS Cloud Practitioner',
-    issuer: 'Amazon Web Services',
-    date: 'Expected 2026',
-    icon: Award,
+    type: 'achievement',
+    title: '1st Place — AlgoThugs 2026',
+    issuer: 'IIT Patna',
+    date: '2026',
+    description: 'Ranked 1st in IIT Patna\'s AlgoThugs 2026 competitive programming contest.',
+    icon: Crown,
     color: 'cyan',
-    link: '#',
-    verified: false,
   },
   {
     type: 'achievement',
-    title: 'Hackathon Finalist',
-    issuer: 'Smart India Hackathon',
+    title: 'Winner — HireHustle',
+    issuer: 'PICT ACM',
     date: '2025',
+    description: 'Won the HireHustle competitive programming contest organized by PICT ACM Student Chapter.',
     icon: Trophy,
     color: 'purple',
-    link: '#',
-    verified: true,
-  },
-  {
-    type: 'certification',
-    title: 'Full Stack Development',
-    issuer: 'Coursera',
-    date: '2024',
-    icon: CheckCircle,
-    color: 'cyan',
-    link: '#',
-    verified: true,
   },
   {
     type: 'achievement',
-    title: 'Open Source Contributor',
-    issuer: 'GitHub',
-    date: 'Active',
-    icon: Star,
+    title: 'AIR 1458 — CodeFest\'25',
+    issuer: 'IICPC Prelims (Top IITs)',
+    date: '2025',
+    description: 'Secured All India Rank 1458 in IICPC\'s CodeFest\'25 Prelims, organized by top IITs across India.',
+    icon: Target,
+    color: 'cyan',
+  },
+  {
+    type: 'achievement',
+    title: '6th Place — CODEFT 5.0',
+    issuer: 'AIT (1200+ teams)',
+    date: '2025',
+    description: 'Ranked 6th in AIT\'s CODEFT 5.0 competitive programming contest, outperforming 1200+ competing teams.',
+    icon: Medal,
     color: 'purple',
-    link: 'https://github.com/lembheharsh18',
-    verified: true,
   },
 ]
 
@@ -71,7 +67,7 @@ export default function AchievementsSection() {
             <span className="gradient-text">Achievements</span>
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto">
-            Certifications, awards, and milestones in my journey
+            Competitive programming wins and milestones
           </p>
         </motion.div>
 
@@ -119,26 +115,14 @@ export default function AchievementsSection() {
                       </h3>
                       <p className="text-gray-400 text-sm">{achievement.issuer}</p>
                     </div>
-                    {achievement.verified && (
-                      <div className="flex items-center gap-1 text-green-400 text-xs">
-                        <CheckCircle className="w-3 h-3" />
-                        <span>Verified</span>
-                      </div>
-                    )}
                   </div>
+
+                  <p className="text-gray-500 text-sm mt-2 leading-relaxed">
+                    {achievement.description}
+                  </p>
 
                   <div className="flex items-center justify-between mt-4">
                     <span className="text-xs text-gray-500 font-mono">{achievement.date}</span>
-                    {achievement.link && achievement.link !== '#' && (
-                      <a
-                        href={achievement.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-xs text-neon-cyan hover:underline"
-                      >
-                        View <ExternalLink className="w-3 h-3" />
-                      </a>
-                    )}
                   </div>
                 </div>
               </div>
@@ -146,12 +130,12 @@ export default function AchievementsSection() {
               {/* Badge type indicator */}
               <div
                 className={`absolute top-4 right-4 px-2 py-1 text-[10px] uppercase tracking-wider rounded-full ${
-                  achievement.type === 'certification'
+                  achievement.color === 'cyan'
                     ? 'bg-neon-cyan/20 text-neon-cyan'
                     : 'bg-electric-purple/20 text-electric-purple'
                 }`}
               >
-                {achievement.type}
+                CP Win
               </div>
             </motion.div>
           ))}

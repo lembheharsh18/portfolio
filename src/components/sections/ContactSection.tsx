@@ -144,20 +144,21 @@ export default function ContactSection() {
 
     setFormStatus('loading')
 
-    // Simulate form submission (replace with actual API call)
-    // For production, use Formspree, EmailJS, or your own backend
     try {
-      // Example: Using Formspree
-      // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData),
-      // })
+      // Formspree integration — Replace YOUR_FORM_ID with your actual Formspree form ID
+      // Sign up at https://formspree.io and create a form to get your ID
+      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
       
-      // Simulated success
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setFormStatus('success')
-      setFormData({ name: '', email: '', message: '' })
+      if (response.ok) {
+        setFormStatus('success')
+        setFormData({ name: '', email: '', message: '' })
+      } else {
+        throw new Error('Form submission failed')
+      }
       
       // Reset status after 5 seconds
       setTimeout(() => setFormStatus('idle'), 5000)

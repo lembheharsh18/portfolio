@@ -5,8 +5,8 @@ import LoadingScreen from '@/components/ui/LoadingScreen'
 import CustomCursor from '@/components/ui/CustomCursor'
 import HeroSection from '@/components/sections/HeroSection'
 import AboutSection from '@/components/sections/AboutSection'
-import StatsSection from '@/components/sections/StatsSection'
-import CyberBreachSection from '@/components/sections/CyberBreachSection'
+import CodingProfilesSection from '@/components/sections/CodingProfilesSection'
+import SkillsSection from '@/components/sections/SkillsSection'
 import ProjectsSection from '@/components/sections/ProjectsSection'
 import AchievementsSection from '@/components/sections/AchievementsSection'
 import ExperienceSection from '@/components/sections/ExperienceSection'
@@ -25,8 +25,8 @@ export default function Home() {
       >
         <HeroSection />
         <AboutSection />
-        <StatsSection />
-        <CyberBreachSection />
+        <CodingProfilesSection />
+        <SkillsSection />
         <ProjectsSection />
         <AchievementsSection />
         <ExperienceSection />

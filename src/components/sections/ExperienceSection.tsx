@@ -2,14 +2,20 @@
 
 import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { Briefcase, Users, Calendar } from 'lucide-react'
+import { Briefcase, Users, Calendar, CheckCircle2 } from 'lucide-react'
 
 const experiences = [
   {
     company: 'Microcut Technology',
-    role: 'Software Intern',
-    period: 'Feb 2026 - May 2026',
-    description: 'Developed ShopFlow ERP - a comprehensive enterprise resource planning system for managing workshop inventories.',
+    role: 'Software Engineer Intern',
+    period: 'Jan 2026 – Apr 2026',
+    description: 'Built enterprise backend systems and automated deployment infrastructure for a manufacturing technology company.',
+    bullets: [
+      'Developed and maintained enterprise backend architectures using Spring Boot, Spring Security, and PostgreSQL, focusing on system architecture and robust API design.',
+      'Collaborated on codebase standardization and technical documentation to improve overall maintainability.',
+      'Automated deployment workflows by building CI/CD pipelines and containerizing applications using Docker and Kubernetes.',
+    ],
+    techUsed: ['Spring Boot', 'Spring Security', 'PostgreSQL', 'Docker', 'Kubernetes'],
     icon: Briefcase,
     type: 'work',
   },
@@ -17,7 +23,12 @@ const experiences = [
     company: 'PASC (PICT ACM Student Chapter)',
     role: 'Council Member',
     period: 'Present',
-    description: 'Organized "Compute and Compete" event - a technical competition fostering innovation and coding excellence.',
+    description: 'Leading technical initiatives and organizing competitive programming events to foster coding excellence.',
+    bullets: [
+      'Organized "Compute and Compete" — a technical competition fostering innovation and coding excellence among students.',
+      'Contributing to community building and technical event management for one of PICT\'s most active student chapters.',
+    ],
+    techUsed: [],
     icon: Users,
     type: 'community',
   },
@@ -154,10 +165,29 @@ export default function ExperienceSection() {
                       <span>{exp.period}</span>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-gray-400 text-sm leading-relaxed">
-                      {exp.description}
-                    </p>
+                    {/* Bullet Points */}
+                    <ul className={`space-y-2 ${index % 2 === 0 ? 'md:text-left' : ''}`}>
+                      {exp.bullets.map((bullet, i) => (
+                        <li key={i} className="flex gap-2 text-gray-400 text-sm leading-relaxed">
+                          <CheckCircle2 className="w-4 h-4 text-neon-cyan shrink-0 mt-0.5" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Tech Tags */}
+                    {exp.techUsed.length > 0 && (
+                      <div className={`flex flex-wrap gap-2 mt-4 ${index % 2 === 0 ? 'md:justify-end' : ''}`}>
+                        {exp.techUsed.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 text-xs rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/20"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </motion.div>
                 </div>
               </motion.div>

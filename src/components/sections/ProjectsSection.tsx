@@ -2,184 +2,134 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import HolographicCard from '@/components/ui/HolographicCard'
+import { Github, ExternalLink } from 'lucide-react'
 
 const projects = [
   {
     title: 'DocuChat',
-    tag: 'GenAI SaaS',
+    subtitle: 'RAG Document Intelligence',
     category: 'ai',
-    description: 'A RAG-based platform to chat with PDFs using Google Gemini & Pinecone. Features semantic search and intelligent document understanding.',
-    techStack: ['Next.js', 'Python', 'AWS S3', 'Pinecone', 'Gemini'],
+    description: 'A RAG-powered platform that lets you chat with PDFs using Google Gemini & Pinecone. Features secure API infrastructure with SHA256 hashing, OWASP-aligned security practices, and streaming LLM responses.',
+    techStack: ['Next.js', 'Python', 'Gemini', 'Pinecone', 'AWS S3', 'PostgreSQL'],
     github: 'https://github.com/lembheharsh18/docuchat',
     live: '#',
-    accent: 'cyan' as const,
-  },
-  {
-    title: 'ShopFlow ERP',
-    tag: 'Enterprise System',
-    category: 'enterprise',
-    description: 'Comprehensive ERP built for Microcut Technology to manage workshop inventories, orders, and real-time analytics.',
-    techStack: ['Spring Boot', 'React', 'MySQL', 'Docker'],
-    github: '#',
-    live: '#',
-    accent: 'purple' as const,
-  },
-  {
-    title: 'FinRAG Assistant',
-    tag: 'AI Finance',
-    category: 'ai',
-    description: 'AI-powered financial document analysis tool with RAG architecture for intelligent Q&A on financial reports.',
-    techStack: ['Next.js', 'FastAPI', 'Firebase', 'LangChain'],
-    github: 'https://github.com/lembheharsh18/finrag',
-    live: '#',
-    accent: 'cyan' as const,
+    preview: '/projects/docuchat.png',
   },
   {
     title: 'CoderSphere',
-    tag: 'Social Platform',
+    subtitle: 'Community Hub',
     category: 'web',
-    description: 'Developer-focused social platform with real-time chat, post sharing, and community features.',
-    techStack: ['React', 'Node.js', 'Socket.io', 'Prisma'],
+    description: 'Full-stack coders community platform with dynamic profiles, competitive programming ratings, real-time activity feeds, discussion forums, live chat, and social engagement tools via scalable RESTful APIs.',
+    techStack: ['React', 'Next.js', 'Node.js', 'Express.js', 'PostgreSQL', 'Prisma', 'Socket.io'],
     github: 'https://github.com/lembheharsh18/coder-sphere-connect',
     live: '#',
-    accent: 'purple' as const,
+    preview: '/projects/codersphere.png',
   },
   {
     title: 'Portfolio v2',
-    tag: 'Personal Website',
+    subtitle: 'Personal Website',
     category: 'web',
-    description: 'This cyberpunk-themed portfolio featuring interactive animations, 3D effects, and modern design patterns.',
-    techStack: ['Next.js', 'Framer Motion', 'TailwindCSS'],
+    description: 'This developer portfolio featuring interactive coding profile cards with live stats, Compare With Me feature, particle network animations, and a clean modern design.',
+    techStack: ['Next.js', 'Framer Motion', 'TailwindCSS', 'TypeScript'],
     github: 'https://github.com/lembheharsh18/portfolio',
-    live: '#',
-    accent: 'cyan' as const,
+    live: 'https://harshlembhe.dev',
+    preview: null,
   },
-  {
-    title: 'AI Code Reviewer',
-    tag: 'Developer Tool',
-    category: 'ai',
-    description: 'Automated code review tool powered by LLMs that provides suggestions, identifies bugs, and improves code quality.',
-    techStack: ['Python', 'OpenAI', 'GitHub API', 'FastAPI'],
-    github: '#',
-    live: '#',
-    accent: 'purple' as const,
-  },
-]
-
-const categories = [
-  { id: 'all', label: 'All Projects' },
-  { id: 'ai', label: 'AI/ML' },
-  { id: 'web', label: 'Web Apps' },
-  { id: 'enterprise', label: 'Enterprise' },
 ]
 
 export default function ProjectsSection() {
-  const [activeCategory, setActiveCategory] = useState('all')
-
-  const filteredProjects = projects.filter(
-    (project) => activeCategory === 'all' || project.category === activeCategory
-  )
-
   return (
-    <section id="projects" className="relative py-32 overflow-hidden">
-      {/* Background Effects */}
+    <section id="projects" className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-0 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[180px]" />
-        <div className="absolute bottom-1/3 right-0 w-[600px] h-[600px] bg-electric-purple/5 rounded-full blur-[180px]" />
+        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-purple-500/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[180px]" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* Section Header */}
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
         <motion.div
           className="text-center mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="text-neon-cyan text-sm uppercase tracking-[0.3em] mb-4 block">
-            Mission Log
-          </span>
-          <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
-            Systems I've architected and deployed into production
-          </p>
-        </motion.div>
-
-        {/* Filter Tabs */}
-        <motion.div
-          className="flex flex-wrap justify-center gap-2 mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          {categories.map((category) => (
-            <motion.button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === category.id
-                  ? 'bg-gradient-to-r from-neon-cyan to-electric-purple text-void'
-                  : 'glass text-gray-400 hover:text-white hover:border-neon-cyan/30'
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3">
+            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Projects</span>
+          </h2>
+          <p className="text-gray-500 text-sm">Things I&apos;ve built and deployed</p>
+        </motion.div>
+
+        <div className="space-y-8">
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.title}
+              className="group grid md:grid-cols-5 gap-6 items-center rounded-2xl border border-white/5 bg-white/[0.02] p-4 md:p-6 hover:border-white/15 transition-all"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
             >
-              {category.label}
-            </motion.button>
+              {/* Preview */}
+              <div className="md:col-span-2 aspect-video rounded-xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/5 overflow-hidden flex items-center justify-center">
+                {project.preview ? (
+                  <img
+                    src={project.preview}
+                    alt={project.title}
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
+                    onError={(e) => {
+                      const el = e.target as HTMLImageElement
+                      el.style.display = 'none'
+                      el.parentElement!.innerHTML = `<div class="text-center"><div class="w-12 h-12 mx-auto mb-2 rounded-lg bg-white/5 flex items-center justify-center"><span class="text-xl">📁</span></div><p class="text-xs text-gray-600">PREVIEW</p></div>`
+                    }}
+                  />
+                ) : (
+                  <div className="text-center">
+                    <div className="w-12 h-12 mx-auto mb-2 rounded-lg bg-white/5 flex items-center justify-center">
+                      <span className="text-xl">🌐</span>
+                    </div>
+                    <p className="text-xs text-gray-600">PREVIEW</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Content */}
+              <div className="md:col-span-3">
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <h3 className="font-heading text-xl font-bold text-white">{project.title}</h3>
+                    <p className="text-xs text-gray-500">{project.subtitle}</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {project.github && project.github !== '#' && (
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+                        <Github className="w-4 h-4" />
+                      </a>
+                    )}
+                    {project.live && project.live !== '#' && (
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-white transition-colors">
+                        <ExternalLink className="w-4 h-4" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  {project.description}
+                </p>
+
+                <div className="flex flex-wrap gap-2">
+                  {project.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="px-2.5 py-1 text-xs rounded-lg border border-white/10 bg-white/[0.03] text-gray-400"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
           ))}
-        </motion.div>
-
-        {/* Projects Grid */}
-        <motion.div layout className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-              >
-                <HolographicCard
-                  title={project.title}
-                  tag={project.tag}
-                  description={project.description}
-                  techStack={project.techStack}
-                  github={project.github}
-                  live={project.live}
-                  accent={project.accent}
-                />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* More Projects Hint */}
-        <motion.div
-          className="text-center mt-12"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <p className="text-gray-500 text-sm">
-            More projects available on{' '}
-            <a
-              href="https://github.com/lembheharsh18"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-neon-cyan hover:underline"
-            >
-              GitHub
-            </a>
-          </p>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

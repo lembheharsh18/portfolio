@@ -2,116 +2,111 @@
 
 import { motion } from 'framer-motion'
 import ParticleNetwork from '@/components/ui/ParticleNetwork'
-import TypewriterSequence from '@/components/ui/TypewriterSequence'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Github, Linkedin, Mail } from 'lucide-react'
 
 export default function HeroSection() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden bg-void">
-      {/* Void black background */}
-      <div className="absolute inset-0 bg-[#020202]" />
-
-      {/* Particle Network (Stars that connect on mouse move) */}
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 bg-[#050505]" />
       <ParticleNetwork />
 
-      {/* Gradient orbs */}
-      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-electric-purple/10 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/4 -left-32 w-96 h-96 bg-emerald-500/8 rounded-full blur-[150px] pointer-events-none" />
+      <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-indigo-500/8 rounded-full blur-[150px] pointer-events-none" />
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-        {/* Terminal-style header */}
+      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
+        {/* Avatar circle */}
         <motion.div
-          className="mb-8"
+          className="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center overflow-hidden"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, type: 'spring' }}
+        >
+          <img src="/pfp.png" alt="Harsh Lembhe" className="w-full h-full object-cover" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }} />
+          <span className="font-heading text-3xl font-bold text-white absolute">HL</span>
+        </motion.div>
+
+        {/* Name */}
+        <motion.h1
+          className="font-heading text-4xl md:text-6xl font-bold text-white mb-3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <motion.div
-              className="w-2 h-2 rounded-full bg-green-400"
-              animate={{ opacity: [1, 0.4, 1] }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              style={{ boxShadow: '0 0 8px rgba(74, 222, 128, 0.8)' }}
-            />
-            <span className="text-xs text-gray-400 uppercase tracking-wider font-mono">
-              System Online • Secure Connection
-            </span>
-          </div>
-        </motion.div>
+          Harsh Lembhe
+        </motion.h1>
 
-        {/* Typewriter Sequence */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mb-8"
+        {/* Title */}
+        <motion.p
+          className="text-xs md:text-sm uppercase tracking-[0.3em] text-gray-400 mb-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <TypewriterSequence />
-        </motion.div>
+          Full-Stack Developer & Competitive Programmer
+        </motion.p>
 
         {/* Subtitle */}
         <motion.p
-          className="text-lg md:text-xl text-gray-400 mb-12 max-w-2xl mx-auto"
+          className="text-gray-500 text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
         >
-          Full Stack Developer specializing in{' '}
-          <span className="text-neon-cyan">AI-powered systems</span> and{' '}
-          <span className="text-electric-purple">enterprise solutions</span>
+          AI &amp; Data Science student obsessed with building scalable systems, solving complex problems,
+          and making them scale gracefully.
         </motion.p>
 
-        {/* CTA Buttons */}
+        {/* Social links */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex items-center justify-center gap-4 mb-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
         >
-          <a
-            href="#projects"
-            className="px-8 py-3 rounded-full font-semibold text-void bg-gradient-to-r from-neon-cyan to-electric-purple hover:shadow-neon-cyan transition-all duration-300 hover:scale-105"
-          >
-            View Operations
-          </a>
-          <a
-            href="#contact"
-            className="px-8 py-3 rounded-full font-semibold text-white border border-white/20 hover:border-neon-cyan/50 hover:bg-neon-cyan/10 transition-all duration-300"
-          >
-            Establish Contact
-          </a>
+          {[
+            { icon: Github, href: 'https://github.com/lembheharsh18', label: 'GitHub' },
+            { icon: Linkedin, href: 'https://linkedin.com/in/lembheharsh18', label: 'LinkedIn' },
+            { icon: Mail, href: 'mailto:lembheharsh0508@gmail.com', label: 'Email' },
+          ].map((s) => (
+            <motion.a
+              key={s.label}
+              href={s.href}
+              target={s.href.startsWith('mailto') ? undefined : '_blank'}
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-white/30 transition-all"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.9 }}
+              aria-label={s.label}
+            >
+              <s.icon className="w-4 h-4" />
+            </motion.a>
+          ))}
+        </motion.div>
+
+        {/* Status badge */}
+        <motion.div
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+        >
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="text-xs text-emerald-300">Available for opportunities</span>
         </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll indicator */}
       <motion.div
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5 }}
+        transition={{ delay: 1.2 }}
       >
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="flex flex-col items-center gap-2"
-        >
-          <span className="text-xs text-gray-500 uppercase tracking-wider">Scroll</span>
-          <ChevronDown className="w-5 h-5 text-neon-cyan" />
+        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="flex flex-col items-center gap-1">
+          <span className="text-xs text-gray-600 uppercase tracking-wider">Scroll</span>
+          <ChevronDown className="w-4 h-4 text-gray-600" />
         </motion.div>
       </motion.div>
-
-      {/* Corner decorations */}
-      <div className="absolute top-20 left-4 md:left-8 flex flex-col gap-1 opacity-30">
-        <div className="w-20 h-px bg-gradient-to-r from-neon-cyan to-transparent" />
-        <div className="w-12 h-px bg-gradient-to-r from-neon-cyan to-transparent" />
-        <div className="w-6 h-px bg-gradient-to-r from-neon-cyan to-transparent" />
-      </div>
-      <div className="absolute top-20 right-4 md:right-8 flex flex-col gap-1 opacity-30 items-end">
-        <div className="w-20 h-px bg-gradient-to-l from-electric-purple to-transparent" />
-        <div className="w-12 h-px bg-gradient-to-l from-electric-purple to-transparent" />
-        <div className="w-6 h-px bg-gradient-to-l from-electric-purple to-transparent" />
-      </div>
     </section>
   )
 }

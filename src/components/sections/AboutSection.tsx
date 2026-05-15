@@ -6,26 +6,26 @@ import { Code2, Cpu, Rocket, GraduationCap, Download, MapPin, ExternalLink } fro
 const highlights = [
   {
     icon: GraduationCap,
-    title: 'B.E. Computer Engineering',
-    subtitle: 'PICT, Pune (2023-2027)',
+    title: 'B.E. AI & Data Science',
+    subtitle: 'PICT, Pune (2023-2027) • CGPA 9.43',
     color: 'cyan',
   },
   {
     icon: Code2,
     title: 'Full Stack Developer',
-    subtitle: 'Spring Boot • React • Next.js',
+    subtitle: 'Spring Boot • React • Next.js • MERN',
     color: 'purple',
   },
   {
     icon: Cpu,
     title: 'AI/ML Enthusiast',
-    subtitle: 'GenAI • RAG • LLMs',
+    subtitle: 'GenAI • RAG • LLMs • Pinecone',
     color: 'cyan',
   },
   {
     icon: Rocket,
-    title: 'Currently Learning',
-    subtitle: 'System Design • Cloud Architecture',
+    title: 'Competitive Programmer',
+    subtitle: 'CF Expert • CC 4★ • LC Knight',
     color: 'purple',
   },
 ]
@@ -76,18 +76,7 @@ export default function AboutSection() {
 
               {/* Profile Image Container */}
               <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden">
-                {/* Replace this with your actual image: */}
-                {/* <img src="/profile.jpg" alt="Harsh Lembhe" className="w-full h-full object-cover" /> */}
-                
-                {/* Placeholder - Remove when adding real image */}
-                <div className="w-full h-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-r from-neon-cyan to-electric-purple flex items-center justify-center">
-                      <span className="font-heading text-4xl font-bold text-void">HL</span>
-                    </div>
-                    <p className="text-gray-500 text-sm font-mono">profile.jpg</p>
-                  </div>
-                </div>
+                <img src="/pfp.png" alt="Harsh Lembhe" className="w-full h-full object-cover" />
 
                 {/* Overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-void/80 via-transparent to-transparent" />
@@ -126,18 +115,19 @@ export default function AboutSection() {
               <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-neon-cyan/30 rounded-tr-2xl" />
               
               <h3 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-                Hey, I'm <span className="text-neon-cyan">Harsh Lembhe</span>
+                Hey, I&apos;m <span className="text-neon-cyan">Harsh Lembhe</span>
               </h3>
               
               <p className="text-gray-400 leading-relaxed mb-4">
-                A passionate Full Stack Developer and AI enthusiast crafting the future of web experiences. 
-                I specialize in building scalable applications and AI-powered solutions that solve real-world problems.
+                A passionate Full Stack Developer and AI enthusiast building intelligent, scalable applications. 
+                I specialize in RAG pipelines, enterprise backend systems, and competitive programming — 
+                ranked Expert on Codeforces and Knight on LeetCode.
               </p>
               
               <p className="text-gray-400 leading-relaxed mb-6">
-                Currently pursuing my B.E. in Computer Engineering at PICT, Pune. I transform complex ideas 
-                into elegant, high-performance digital experiences. My work spans from enterprise ERP systems 
-                to cutting-edge GenAI applications.
+                Currently pursuing B.E. in Artificial Intelligence and Data Science at PICT, Pune 
+                with a CGPA of 9.43/10. I build everything from secure API infrastructures with 
+                Spring Boot to real-time community platforms with the MERN stack.
               </p>
 
               <div className="flex items-center gap-4 text-gray-500 mb-8">
@@ -177,7 +167,7 @@ export default function AboutSection() {
                   whileTap={{ scale: 0.95 }}
                   data-cursor="Contact"
                 >
-                  Let's Connect
+                  Let&apos;s Connect
                 </motion.a>
               </div>
             </div>

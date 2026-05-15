@@ -16,9 +16,9 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://harshlembhe.dev'),
-  title: 'Harsh Lembhe | Full Stack Developer & AI Engineer',
-  description: 'Full Stack Developer specializing in AI-powered systems, enterprise solutions, and modern web applications. Expert in React, Next.js, Spring Boot, and Generative AI.',
-  keywords: ['Full Stack Developer', 'AI Engineer', 'React', 'Next.js', 'Spring Boot', 'GenAI', 'RAG', 'LLMs', 'Web Developer', 'Pune', 'India'],
+  title: 'Harsh Lembhe | Full Stack Developer & Competitive Programmer',
+  description: 'Full Stack Developer & AI enthusiast specializing in RAG pipelines, enterprise backends, and competitive programming. Codeforces Expert (1711), LeetCode Knight (Top 2.3%). B.E. AI & Data Science at PICT, Pune.',
+  keywords: ['Full Stack Developer', 'Competitive Programmer', 'React', 'Next.js', 'Spring Boot', 'RAG', 'Codeforces Expert', 'LeetCode Knight', 'PICT Pune', 'AI Data Science'],
   authors: [{ name: 'Harsh Lembhe' }],
   creator: 'Harsh Lembhe',
   openGraph: {
@@ -26,8 +26,8 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://harshlembhe.dev',
     siteName: 'Harsh Lembhe Portfolio',
-    title: 'Harsh Lembhe | Full Stack Developer & AI Engineer',
-    description: 'Full Stack Developer specializing in AI-powered systems and enterprise solutions.',
+    title: 'Harsh Lembhe | Full Stack Developer & Competitive Programmer',
+    description: 'Full Stack Developer & AI enthusiast. Codeforces Expert, LeetCode Knight. B.E. AI & Data Science at PICT, Pune.',
     images: [
       {
         url: '/og-image.png',
@@ -39,8 +39,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Harsh Lembhe | Full Stack Developer & AI Engineer',
-    description: 'Full Stack Developer specializing in AI-powered systems and enterprise solutions.',
+    title: 'Harsh Lembhe | Full Stack Developer & Competitive Programmer',
+    description: 'Full Stack Developer & AI enthusiast. Codeforces Expert, LeetCode Knight. B.E. AI & Data Science at PICT, Pune.',
     images: ['/og-image.png'],
   },
   robots: {
