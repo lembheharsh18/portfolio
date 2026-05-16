@@ -173,7 +173,7 @@ export default function ContactSection() {
     <section id="contact" className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-electric-purple/5 rounded-full blur-[200px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[200px]" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -323,7 +323,7 @@ export default function ContactSection() {
             >
               <div className="absolute inset-0 rounded-full border border-white/5" />
               <div className="absolute inset-6 rounded-full border border-white/5" />
-              <div className="absolute inset-12 rounded-full border border-white/10" />
+              <div className="absolute inset-12 rounded-full border border-neon-cyan/10" />
 
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="font-heading text-xl font-bold gradient-text">Connect</span>

@@ -28,7 +28,7 @@ export default function Footer() {
     <footer className="relative pt-16 pb-8 overflow-hidden border-t border-white/10">
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-electric-purple/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-neon-cyan/5 rounded-full blur-[180px]" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -112,13 +112,18 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent mb-8" />
+        <div className="h-px bg-gradient-to-r from-transparent via-neon-cyan/20 to-transparent mb-8" />
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-sm flex items-center gap-1">
             © {new Date().getFullYear()} Harsh Lembhe. Built with
-            <Heart className="w-4 h-4 text-red-500 inline" />
+            <motion.span
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              <Heart className="w-4 h-4 text-neon-cyan inline" />
+            </motion.span>
             using Next.js
           </p>
 

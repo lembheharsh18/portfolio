@@ -8,6 +8,8 @@ interface Particle {
   vx: number
   vy: number
   radius: number
+  baseRadius: number
+  pulseOffset: number
 }
 
 interface ParticleNetworkProps {
@@ -19,18 +21,22 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
   const particlesRef = useRef<Particle[]>([])
   const mouseRef = useRef({ x: 0, y: 0 })
   const animationRef = useRef<number>()
+  const timeRef = useRef(0)
 
   const initParticles = useCallback((width: number, height: number) => {
     const particleCount = Math.floor((width * height) / 15000)
     const particles: Particle[] = []
 
     for (let i = 0; i < particleCount; i++) {
+      const baseRadius = Math.random() * 2 + 1
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.random() * 2 + 1,
+        radius: baseRadius,
+        baseRadius,
+        pulseOffset: Math.random() * Math.PI * 2,
       })
     }
 
@@ -39,6 +45,7 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
 
   const drawParticles = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
     ctx.clearRect(0, 0, width, height)
+    timeRef.current += 0.02
 
     const particles = particlesRef.current
     const mouse = mouseRef.current
@@ -51,6 +58,9 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       particle.x += particle.vx
       particle.y += particle.vy
 
+      // Breathing effect — particles gently pulse in size
+      particle.radius = particle.baseRadius + Math.sin(timeRef.current * 2 + particle.pulseOffset) * 0.5
+
       // Bounce off walls
       if (particle.x < 0 || particle.x > width) particle.vx *= -1
       if (particle.y < 0 || particle.y > height) particle.vy *= -1
@@ -59,11 +69,19 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       particle.x = Math.max(0, Math.min(width, particle.x))
       particle.y = Math.max(0, Math.min(height, particle.y))
 
-      // Draw particle
+      // Draw particle with pink glow
       ctx.beginPath()
       ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-      ctx.fillStyle = 'rgba(0, 240, 255, 0.6)'
+      ctx.fillStyle = 'rgba(139, 92, 246, 0.6)'
       ctx.fill()
+
+      // Occasional sparkle flash
+      if (Math.sin(timeRef.current * 3 + particle.pulseOffset * 5) > 0.97) {
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.radius * 3, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(167, 139, 250, 0.3)'
+        ctx.fill()
+      }
 
       // Connect to nearby particles
       for (let j = i + 1; j < particles.length; j++) {
@@ -77,7 +95,7 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
           ctx.beginPath()
           ctx.moveTo(particle.x, particle.y)
           ctx.lineTo(other.x, other.y)
-          ctx.strokeStyle = `rgba(0, 240, 255, ${opacity})`
+          ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`
           ctx.lineWidth = 0.5
           ctx.stroke()
         }
@@ -94,10 +112,10 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
         ctx.moveTo(particle.x, particle.y)
         ctx.lineTo(mouse.x, mouse.y)
         
-        // Gradient from cyan to purple
+        // Gradient from pink to coral
         const gradient = ctx.createLinearGradient(particle.x, particle.y, mouse.x, mouse.y)
-        gradient.addColorStop(0, `rgba(0, 240, 255, ${opacity})`)
-        gradient.addColorStop(1, `rgba(112, 0, 255, ${opacity})`)
+        gradient.addColorStop(0, `rgba(139, 92, 246, ${opacity})`)
+        gradient.addColorStop(1, `rgba(20, 184, 166, ${opacity})`)
         ctx.strokeStyle = gradient
         ctx.lineWidth = 1
         ctx.stroke()
@@ -105,7 +123,7 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
         // Draw glow at connection point
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.radius * 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(0, 240, 255, ${opacity * 0.5})`
+        ctx.fillStyle = `rgba(139, 92, 246, ${opacity * 0.5})`
         ctx.fill()
       }
     })

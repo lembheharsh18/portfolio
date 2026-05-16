@@ -82,8 +82,8 @@ export default function ExperienceSection() {
             className="absolute left-8 md:left-1/2 top-0 w-1 -translate-x-1/2 rounded-full origin-top"
             style={{
               height: timelineHeight,
-              background: 'linear-gradient(180deg, #00f0ff 0%, #7000ff 100%)',
-              boxShadow: '0 0 20px rgba(0, 240, 255, 0.5), 0 0 40px rgba(112, 0, 255, 0.3)',
+              background: 'linear-gradient(180deg, #8B5CF6 0%, #14B8A6 100%)',
+              boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(20, 184, 166, 0.3)',
             }}
           />
 
@@ -106,7 +106,7 @@ export default function ExperienceSection() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.2 + 0.3 }}
                   style={{
-                    boxShadow: '0 0 15px rgba(0, 240, 255, 0.8), 0 0 30px rgba(0, 240, 255, 0.4)',
+                    boxShadow: '0 0 15px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.4)',
                   }}
                 />
 
@@ -127,7 +127,7 @@ export default function ExperienceSection() {
                     <div
                       className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
                       style={{
-                        background: `radial-gradient(circle at ${index % 2 === 0 ? '100%' : '0%'} 50%, rgba(0, 240, 255, 0.1) 0%, transparent 50%)`,
+                        background: `radial-gradient(circle at ${index % 2 === 0 ? '100%' : '0%'} 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%)`,
                       }}
                     />
 
@@ -201,7 +201,7 @@ export default function ExperienceSection() {
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
             style={{
-              boxShadow: '0 0 15px rgba(112, 0, 255, 0.8)',
+              boxShadow: '0 0 15px rgba(20, 184, 166, 0.8)',
             }}
           />
         </div>

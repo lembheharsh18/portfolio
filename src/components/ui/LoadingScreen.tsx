@@ -43,16 +43,26 @@ export default function LoadingScreen() {
             />
           </div>
 
-          {/* Logo / Name */}
+          {/* Logo / Name with heartbeat */}
           <motion.div
             className="relative mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <h1 className="font-heading text-4xl md:text-6xl font-bold gradient-text">
+            <motion.h1
+              className="font-heading text-4xl md:text-6xl font-bold gradient-text"
+              animate={{
+                scale: [1, 1.15, 1, 1.1, 1],
+              }}
+              transition={{
+                duration: 1.2,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
               HL
-            </h1>
+            </motion.h1>
             {/* Glitch effect layers */}
             <motion.h1
               className="absolute inset-0 font-heading text-4xl md:text-6xl font-bold text-neon-cyan opacity-50"
@@ -101,8 +111,8 @@ export default function LoadingScreen() {
                 className="h-full rounded-full"
                 style={{
                   width: `${Math.min(progress, 100)}%`,
-                  background: 'linear-gradient(90deg, #00f0ff, #7000ff)',
-                  boxShadow: '0 0 20px rgba(0, 240, 255, 0.5)',
+                  background: 'linear-gradient(90deg, #8B5CF6, #14B8A6)',
+                  boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)',
                 }}
                 transition={{ duration: 0.1 }}
               />

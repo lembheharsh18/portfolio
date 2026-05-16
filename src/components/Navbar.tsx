@@ -92,7 +92,7 @@ export default function Navbar() {
           whileTap={{ scale: 0.95 }}
           onClick={(e) => handleNavClick(e, '#home')}
         >
-          <span className="font-heading text-2xl font-bold gradient-text">
+          <span className="font-heading text-2xl font-bold gradient-text-animated">
             Harsh Lembhe
           </span>
           <motion.span

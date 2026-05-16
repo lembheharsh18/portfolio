@@ -3,11 +3,20 @@
 import { useEffect, useState, useCallback, useRef } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 
+interface TrailDot {
+  id: number
+  x: number
+  y: number
+  opacity: number
+}
+
 export default function CustomCursor() {
   const [isVisible, setIsVisible] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [hoverText, setHoverText] = useState('')
+  const [trail, setTrail] = useState<TrailDot[]>([])
   const cursorRef = useRef<HTMLDivElement>(null)
+  const trailIdRef = useRef(0)
 
   // Smooth spring-based cursor position
   const cursorX = useMotionValue(0)
@@ -23,6 +32,15 @@ export default function CustomCursor() {
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
       setIsVisible(true)
+
+      // Add trail dot
+      const newDot: TrailDot = {
+        id: trailIdRef.current++,
+        x: e.clientX,
+        y: e.clientY,
+        opacity: 0.6,
+      }
+      setTrail((prev) => [...prev.slice(-8), newDot])
 
       // Check for interactive elements
       const target = e.target as HTMLElement
@@ -46,6 +64,18 @@ export default function CustomCursor() {
     [cursorX, cursorY]
   )
 
+  // Fade out trail dots
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTrail((prev) =>
+        prev
+          .map((dot) => ({ ...dot, opacity: dot.opacity - 0.08 }))
+          .filter((dot) => dot.opacity > 0)
+      )
+    }, 50)
+    return () => clearInterval(interval)
+  }, [])
+
   useEffect(() => {
     const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
     if (isTouchDevice) return
@@ -68,6 +98,23 @@ export default function CustomCursor() {
 
   return (
     <>
+      {/* Trail dots */}
+      {trail.map((dot) => (
+        <div
+          key={dot.id}
+          className="fixed pointer-events-none z-[9998] rounded-full"
+          style={{
+            left: dot.x - 2,
+            top: dot.y - 2,
+            width: 4,
+            height: 4,
+            background: `rgba(139, 92, 246, ${dot.opacity})`,
+            boxShadow: `0 0 6px rgba(139, 92, 246, ${dot.opacity * 0.5})`,
+            transition: 'opacity 0.1s',
+          }}
+        />
+      ))}
+
       {/* Outer ring - elastic follow effect */}
       <motion.div
         ref={cursorRef}
@@ -92,11 +139,11 @@ export default function CustomCursor() {
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              border: isHovering ? '1px solid rgba(0, 240, 255, 0.6)' : '1px solid rgba(255, 255, 255, 0.3)',
+              border: isHovering ? '1px solid rgba(139, 92, 246, 0.6)' : '1px solid rgba(255, 255, 255, 0.3)',
               background: isHovering
-                ? 'radial-gradient(circle, rgba(0, 240, 255, 0.1) 0%, transparent 70%)'
+                ? 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)'
                 : 'transparent',
-              boxShadow: isHovering ? '0 0 20px rgba(0, 240, 255, 0.3)' : 'none',
+              boxShadow: isHovering ? '0 0 20px rgba(139, 92, 246, 0.3)' : 'none',
               transition: 'all 0.3s ease',
             }}
           />
@@ -136,11 +183,11 @@ export default function CustomCursor() {
           className="rounded-full"
           style={{
             background: isHovering
-              ? '#00f0ff'
-              : 'linear-gradient(135deg, #00f0ff, #7000ff)',
+              ? '#8B5CF6'
+              : 'linear-gradient(135deg, #8B5CF6, #14B8A6)',
             boxShadow: isHovering
-              ? '0 0 15px rgba(0, 240, 255, 0.8)'
-              : '0 0 10px rgba(0, 240, 255, 0.5)',
+              ? '0 0 15px rgba(139, 92, 246, 0.8)'
+              : '0 0 10px rgba(139, 92, 246, 0.5)',
           }}
         />
       </motion.div>

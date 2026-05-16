@@ -6,27 +6,27 @@ const skillCategories = [
   {
     title: 'Core',
     items: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'Database Management', 'Operating Systems', 'System Design'],
-    color: '#10b981',
+    color: '#8B5CF6',
   },
   {
     title: 'Languages',
     items: ['Python', 'C++', 'C', 'C#', 'JavaScript', 'SQL', 'Java'],
-    color: '#f59e0b',
+    color: '#14B8A6',
   },
   {
     title: 'Frameworks & Libraries',
     items: ['React', 'Next.js', 'Node.js', 'Express.js', 'Spring Boot', 'Flask', 'Django'],
-    color: '#6366f1',
+    color: '#A78BFA',
   },
   {
     title: 'Databases & Services',
     items: ['PostgreSQL', 'MongoDB', 'MySQL', 'Oracle', 'AWS S3', 'Pinecone'],
-    color: '#ec4899',
+    color: '#5EEAD4',
   },
   {
     title: 'Developer Tools',
     items: ['Docker', 'Kubernetes', 'Git', 'GitHub', 'VS Code', 'Postman', 'Vercel'],
-    color: '#22d3ee',
+    color: '#6366F1',
   },
 ]
 
@@ -34,8 +34,8 @@ export default function SkillsSection() {
   return (
     <section id="skills" className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[180px]" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[180px]" />
+        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-neon-cyan/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-electric-purple/5 rounded-full blur-[180px]" />
       </div>
 
       <div className="max-w-4xl mx-auto px-6 relative z-10">
@@ -46,7 +46,7 @@ export default function SkillsSection() {
           viewport={{ once: true }}
         >
           <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3">
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">Skills & Technologies</span>
+            <span className="bg-gradient-to-r from-neon-cyan to-electric-purple bg-clip-text text-transparent">Skills & Technologies</span>
           </h2>
           <p className="text-gray-500 text-sm">Technologies and tools I use to build things</p>
         </motion.div>
@@ -76,15 +76,16 @@ export default function SkillsSection() {
                       color: '#d1d5db',
                       background: `${category.color}08`,
                     }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
+                    initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.03 }}
+                    transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.04, type: 'spring', stiffness: 200 }}
                     whileHover={{
                       borderColor: `${category.color}80`,
                       background: `${category.color}15`,
-                      scale: 1.05,
-                      y: -2,
+                      scale: 1.08,
+                      y: -3,
+                      rotate: Math.random() > 0.5 ? 2 : -2,
                     }}
                   >
                     {skill}

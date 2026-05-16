@@ -8,25 +8,25 @@ const highlights = [
     icon: GraduationCap,
     title: 'B.E. AI & Data Science',
     subtitle: 'PICT, Pune (2023-2027) • CGPA 9.43',
-    color: 'cyan',
+    color: 'pink',
   },
   {
     icon: Code2,
     title: 'Full Stack Developer',
     subtitle: 'Spring Boot • React • Next.js • MERN',
-    color: 'purple',
+    color: 'coral',
   },
   {
     icon: Cpu,
     title: 'AI/ML Enthusiast',
     subtitle: 'GenAI • RAG • LLMs • Pinecone',
-    color: 'cyan',
+    color: 'pink',
   },
   {
     icon: Rocket,
     title: 'Competitive Programmer',
     subtitle: 'CF Expert • CC 4★ • LC Knight',
-    color: 'purple',
+    color: 'coral',
   },
 ]
 
@@ -35,8 +35,8 @@ export default function AboutSection() {
     <section id="about" className="relative py-32 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-electric-purple/5 rounded-full blur-[180px]" />
-        <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[180px]" />
+        <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-1/4 left-0 w-[600px] h-[600px] bg-electric-purple/5 rounded-full blur-[180px]" />
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
@@ -90,7 +90,7 @@ export default function AboutSection() {
                   transition={{ delay: 0.3 }}
                 >
                   <div className="glass rounded-xl p-3 flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                    <div className="w-2 h-2 rounded-full bg-neon-cyan animate-pulse" />
                     <span className="text-sm text-gray-300">Available for work</span>
                   </div>
                 </motion.div>
@@ -110,7 +110,7 @@ export default function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="glass rounded-2xl p-8 relative">
+            <div className="glass rounded-2xl p-8 relative gradient-border">
               {/* Decorative corner */}
               <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-neon-cyan/30 rounded-tr-2xl" />
               
@@ -178,20 +178,21 @@ export default function AboutSection() {
                 <motion.div
                   key={item.title}
                   className="glass rounded-xl p-4 group hover:border-neon-cyan/30 transition-all duration-300"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 20, rotate: -2 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
-                  whileHover={{ y: -3 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  style={{ perspective: '1000px' }}
                 >
                   <div
                     className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${
-                      item.color === 'cyan' ? 'bg-neon-cyan/10' : 'bg-electric-purple/10'
+                      item.color === 'pink' ? 'bg-neon-cyan/10' : 'bg-electric-purple/10'
                     }`}
                   >
                     <item.icon
                       className={`w-5 h-5 ${
-                        item.color === 'cyan' ? 'text-neon-cyan' : 'text-electric-purple'
+                        item.color === 'pink' ? 'text-neon-cyan' : 'text-electric-purple'
                       }`}
                     />
                   </div>

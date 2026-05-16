@@ -220,12 +220,12 @@ export default function CodingProfilesSection() {
   return (
     <section id="profiles" className="relative py-24 overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-orange-500/5 rounded-full blur-[180px]" />
-        <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-indigo-500/5 rounded-full blur-[180px]" />
+        <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-neon-cyan/5 rounded-full blur-[180px]" />
+        <div className="absolute bottom-1/3 right-0 w-[500px] h-[500px] bg-electric-purple/5 rounded-full blur-[180px]" />
       </div>
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3"><span className="bg-gradient-to-r from-orange-400 via-rose-400 to-indigo-400 bg-clip-text text-transparent">Competitive Programming</span></h2>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3"><span className="bg-gradient-to-r from-neon-cyan via-blush to-electric-purple bg-clip-text text-transparent">Competitive Programming</span></h2>
           <p className="text-gray-500 text-sm">Live stats from competitive programming profiles</p>
         </motion.div>
         <div className="grid md:grid-cols-2 gap-6">

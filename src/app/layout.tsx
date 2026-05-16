@@ -1,17 +1,17 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter, Space_Grotesk } from 'next/font/google'
+import { DM_Sans, Syne } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 
-const inter = Inter({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-dm-sans',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const syne = Syne({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  variable: '--font-syne',
 })
 
 export const metadata: Metadata = {
@@ -73,7 +73,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${syne.variable}`}>
       <head>
         <link rel="manifest" href="/site.webmanifest" />
       </head>

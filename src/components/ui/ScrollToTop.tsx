@@ -34,10 +34,7 @@ export default function ScrollToTop() {
           exit={{ opacity: 0, scale: 0.8, y: 20 }}
           transition={{ duration: 0.3 }}
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full glass flex items-center justify-center group cursor-pointer hover:border-neon-cyan/50 transition-all duration-300"
-          style={{
-            boxShadow: '0 0 20px rgba(0, 240, 255, 0.2)',
-          }}
+          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full glass flex items-center justify-center group cursor-pointer hover:border-neon-cyan/50 transition-all duration-300 animate-glow-breathe"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           aria-label="Scroll to top"

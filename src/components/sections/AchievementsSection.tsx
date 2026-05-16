@@ -11,7 +11,7 @@ const achievements = [
     date: '2026',
     description: 'Ranked 1st in IIT Patna\'s AlgoThugs 2026 competitive programming contest.',
     icon: Crown,
-    color: 'cyan',
+    color: 'pink',
   },
   {
     type: 'achievement',
@@ -20,7 +20,7 @@ const achievements = [
     date: '2025',
     description: 'Won the HireHustle competitive programming contest organized by PICT ACM Student Chapter.',
     icon: Trophy,
-    color: 'purple',
+    color: 'coral',
   },
   {
     type: 'achievement',
@@ -29,7 +29,7 @@ const achievements = [
     date: '2025',
     description: 'Secured All India Rank 1458 in IICPC\'s CodeFest\'25 Prelims, organized by top IITs across India.',
     icon: Target,
-    color: 'cyan',
+    color: 'pink',
   },
   {
     type: 'achievement',
@@ -38,7 +38,7 @@ const achievements = [
     date: '2025',
     description: 'Ranked 6th in AIT\'s CODEFT 5.0 competitive programming contest, outperforming 1200+ competing teams.',
     icon: Medal,
-    color: 'purple',
+    color: 'coral',
   },
 ]
 
@@ -81,27 +81,39 @@ export default function AchievementsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
+              whileHover={{ y: -5, scale: 1.02 }}
             >
               {/* Glow effect */}
               <div
                 className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
-                  achievement.color === 'cyan'
+                  achievement.color === 'pink'
                     ? 'bg-gradient-to-br from-neon-cyan/10 to-transparent'
                     : 'bg-gradient-to-br from-electric-purple/10 to-transparent'
                 }`}
+              />
+
+              {/* Sparkle effect on hover */}
+              <motion.div
+                className="absolute top-6 right-16 w-1.5 h-1.5 rounded-full bg-neon-cyan/0 group-hover:bg-neon-cyan/60 pointer-events-none"
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.5, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity, delay: 0.5 }}
+              />
+              <motion.div
+                className="absolute bottom-8 right-8 w-1 h-1 rounded-full bg-electric-purple/0 group-hover:bg-electric-purple/60 pointer-events-none"
+                animate={{ opacity: [0, 1, 0], scale: [0.5, 1.2, 0.5] }}
+                transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
               />
 
               <div className="relative z-10 flex gap-4">
                 {/* Icon */}
                 <div
                   className={`w-14 h-14 rounded-xl flex items-center justify-center shrink-0 ${
-                    achievement.color === 'cyan' ? 'bg-neon-cyan/10' : 'bg-electric-purple/10'
+                    achievement.color === 'pink' ? 'bg-neon-cyan/10' : 'bg-electric-purple/10'
                   }`}
                 >
                   <achievement.icon
                     className={`w-7 h-7 ${
-                      achievement.color === 'cyan' ? 'text-neon-cyan' : 'text-electric-purple'
+                      achievement.color === 'pink' ? 'text-neon-cyan' : 'text-electric-purple'
                     }`}
                   />
                 </div>
@@ -130,7 +142,7 @@ export default function AchievementsSection() {
               {/* Badge type indicator */}
               <div
                 className={`absolute top-4 right-4 px-2 py-1 text-[10px] uppercase tracking-wider rounded-full ${
-                  achievement.color === 'cyan'
+                  achievement.color === 'pink'
                     ? 'bg-neon-cyan/20 text-neon-cyan'
                     : 'bg-electric-purple/20 text-electric-purple'
                 }`}
