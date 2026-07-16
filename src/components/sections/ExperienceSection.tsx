@@ -41,17 +41,10 @@ export default function ExperienceSection() {
     offset: ['start end', 'end start'],
   })
 
-  // Transform scroll progress to timeline fill
   const timelineHeight = useTransform(scrollYProgress, [0, 0.8], ['0%', '100%'])
 
   return (
     <section id="experience" className="relative py-32 overflow-hidden" ref={containerRef}>
-      {/* Background Effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-neon-cyan/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 right-0 w-[500px] h-[500px] bg-electric-purple/5 rounded-full blur-[150px]" />
-      </div>
-
       <div className="max-w-4xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -61,29 +54,29 @@ export default function ExperienceSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-neon-cyan text-sm uppercase tracking-[0.3em] mb-4 block">
+          <span className="text-sm uppercase tracking-[0.3em] mb-4 block" style={{ color: 'var(--text-muted)' }}>
             Career Path
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Experience</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
+          <p style={{ color: 'var(--text-secondary)' }} className="max-w-xl mx-auto">
             My journey in tech and community leadership
           </p>
         </motion.div>
 
         {/* Timeline Container */}
         <div className="relative">
-          {/* Timeline Track (background) */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 bg-white/10 rounded-full" />
+          {/* Timeline Track */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 -translate-x-1/2 rounded-full" style={{ background: 'var(--border)' }} />
 
-          {/* Timeline Fill (animated) */}
+          {/* Timeline Fill */}
           <motion.div
             className="absolute left-8 md:left-1/2 top-0 w-1 -translate-x-1/2 rounded-full origin-top"
             style={{
               height: timelineHeight,
-              background: 'linear-gradient(180deg, #8B5CF6 0%, #14B8A6 100%)',
-              boxShadow: '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(20, 184, 166, 0.3)',
+              background: 'linear-gradient(180deg, var(--text-primary) 0%, var(--text-muted) 100%)',
+              boxShadow: '0 0 15px rgba(255,255,255,0.1)',
             }}
           />
 
@@ -100,14 +93,16 @@ export default function ExperienceSection() {
               >
                 {/* Timeline Node */}
                 <motion.div
-                  className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-void border-2 border-neon-cyan z-10"
+                  className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-full z-10"
+                  style={{
+                    background: 'var(--bg)',
+                    border: '2px solid var(--text-primary)',
+                    boxShadow: '0 0 10px rgba(255,255,255,0.15)',
+                  }}
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.2 + 0.3 }}
-                  style={{
-                    boxShadow: '0 0 15px rgba(139, 92, 246, 0.8), 0 0 30px rgba(139, 92, 246, 0.4)',
-                  }}
                 />
 
                 {/* Content Card */}
@@ -123,43 +118,36 @@ export default function ExperienceSection() {
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
                   >
-                    {/* Glow effect on hover */}
-                    <div
-                      className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"
-                      style={{
-                        background: `radial-gradient(circle at ${index % 2 === 0 ? '100%' : '0%'} 50%, rgba(139, 92, 246, 0.1) 0%, transparent 50%)`,
-                      }}
-                    />
-
                     {/* Icon */}
                     <div
                       className={`flex items-center gap-3 mb-3 ${
                         index % 2 === 0 ? 'md:justify-end' : ''
                       }`}
                     >
-                      <div className="w-10 h-10 rounded-xl bg-neon-cyan/10 flex items-center justify-center">
-                        <exp.icon className="w-5 h-5 text-neon-cyan" />
+                      <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: 'var(--border)' }}>
+                        <exp.icon className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                       </div>
-                      <span className="text-neon-cyan text-sm font-medium">
+                      <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
                         {exp.type === 'work' ? 'Work Experience' : 'Community'}
                       </span>
                     </div>
 
                     {/* Company */}
-                    <h3 className="font-heading text-xl md:text-2xl font-bold text-white mb-1">
+                    <h3 className="font-heading text-xl md:text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                       {exp.company}
                     </h3>
 
                     {/* Role */}
-                    <p className="text-electric-purple font-semibold mb-2">
+                    <p className="font-semibold mb-2" style={{ color: 'var(--text-secondary)' }}>
                       {exp.role}
                     </p>
 
                     {/* Period */}
                     <div
-                      className={`flex items-center gap-2 text-gray-500 text-sm mb-4 ${
+                      className={`flex items-center gap-2 text-sm mb-4 ${
                         index % 2 === 0 ? 'md:justify-end' : ''
                       }`}
+                      style={{ color: 'var(--text-muted)' }}
                     >
                       <Calendar className="w-4 h-4" />
                       <span>{exp.period}</span>
@@ -168,8 +156,8 @@ export default function ExperienceSection() {
                     {/* Bullet Points */}
                     <ul className={`space-y-2 ${index % 2 === 0 ? 'md:text-left' : ''}`}>
                       {exp.bullets.map((bullet, i) => (
-                        <li key={i} className="flex gap-2 text-gray-400 text-sm leading-relaxed">
-                          <CheckCircle2 className="w-4 h-4 text-neon-cyan shrink-0 mt-0.5" />
+                        <li key={i} className="flex gap-2 text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                          <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--accent-green)' }} />
                           <span>{bullet}</span>
                         </li>
                       ))}
@@ -181,7 +169,12 @@ export default function ExperienceSection() {
                         {exp.techUsed.map((tech) => (
                           <span
                             key={tech}
-                            className="px-2 py-1 text-xs rounded-full bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/20"
+                            className="px-2 py-1 text-xs rounded-full"
+                            style={{
+                              background: 'var(--border)',
+                              color: 'var(--text-secondary)',
+                              border: '1px solid var(--border)',
+                            }}
                           >
                             {tech}
                           </span>
@@ -196,13 +189,14 @@ export default function ExperienceSection() {
 
           {/* Timeline End Node */}
           <motion.div
-            className="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 w-3 h-3 rounded-full bg-electric-purple"
+            className="absolute left-8 md:left-1/2 bottom-0 -translate-x-1/2 w-3 h-3 rounded-full"
+            style={{
+              background: 'var(--text-muted)',
+              boxShadow: '0 0 10px rgba(255,255,255,0.1)',
+            }}
             initial={{ scale: 0 }}
             whileInView={{ scale: 1 }}
             viewport={{ once: true }}
-            style={{
-              boxShadow: '0 0 15px rgba(20, 184, 166, 0.8)',
-            }}
           />
         </div>
       </div>

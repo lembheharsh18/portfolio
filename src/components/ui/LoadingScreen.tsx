@@ -27,16 +27,18 @@ export default function LoadingScreen() {
     <AnimatePresence>
       {isLoading && (
         <motion.div
-          className="fixed inset-0 z-[9999] bg-void flex flex-col items-center justify-center"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
+          style={{ background: 'var(--bg)' }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Glitch overlay */}
+          {/* Subtle overlay */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
             <motion.div
-              className="absolute inset-0 bg-neon-cyan/5"
+              className="absolute inset-0"
+              style={{ background: 'var(--border)' }}
               animate={{
-                opacity: [0, 0.1, 0, 0.05, 0],
+                opacity: [0, 0.05, 0, 0.03, 0],
                 x: [0, -5, 5, -2, 0],
               }}
               transition={{ duration: 0.3, repeat: Infinity, repeatDelay: 2 }}
@@ -51,7 +53,8 @@ export default function LoadingScreen() {
             transition={{ duration: 0.5 }}
           >
             <motion.h1
-              className="font-heading text-4xl md:text-6xl font-bold gradient-text"
+              className="font-heading text-4xl md:text-6xl font-bold"
+              style={{ color: 'var(--text-primary)' }}
               animate={{
                 scale: [1, 1.15, 1, 1.1, 1],
               }}
@@ -63,33 +66,17 @@ export default function LoadingScreen() {
             >
               HL
             </motion.h1>
-            {/* Glitch effect layers */}
-            <motion.h1
-              className="absolute inset-0 font-heading text-4xl md:text-6xl font-bold text-neon-cyan opacity-50"
-              animate={{ x: [0, -3, 3, 0] }}
-              transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3 }}
-              style={{ clipPath: 'inset(0 0 50% 0)' }}
-            >
-              HL
-            </motion.h1>
-            <motion.h1
-              className="absolute inset-0 font-heading text-4xl md:text-6xl font-bold text-electric-purple opacity-50"
-              animate={{ x: [0, 3, -3, 0] }}
-              transition={{ duration: 0.2, repeat: Infinity, repeatDelay: 3.1 }}
-              style={{ clipPath: 'inset(50% 0 0 0)' }}
-            >
-              HL
-            </motion.h1>
           </motion.div>
 
           {/* Loading text */}
           <motion.div
-            className="font-mono text-sm text-gray-400 mb-6 flex items-center gap-2"
+            className="font-mono text-sm flex items-center gap-2 mb-6"
+            style={{ color: 'var(--text-muted)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <span className="text-neon-cyan">&gt;</span>
+            <span style={{ color: 'var(--text-primary)' }}>&gt;</span>
             <motion.span
               animate={{ opacity: [1, 0.5, 1] }}
               transition={{ duration: 1, repeat: Infinity }}
@@ -106,40 +93,41 @@ export default function LoadingScreen() {
 
           {/* Progress bar */}
           <div className="w-64 md:w-80">
-            <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-1 rounded-full overflow-hidden" style={{ background: 'var(--border)' }}>
               <motion.div
                 className="h-full rounded-full"
                 style={{
                   width: `${Math.min(progress, 100)}%`,
-                  background: 'linear-gradient(90deg, #8B5CF6, #14B8A6)',
-                  boxShadow: '0 0 20px rgba(139, 92, 246, 0.5)',
+                  background: 'linear-gradient(90deg, var(--text-primary), var(--text-muted))',
+                  boxShadow: '0 0 10px rgba(255, 255, 255, 0.15)',
                 }}
                 transition={{ duration: 0.1 }}
               />
             </div>
             <div className="flex justify-between mt-2 text-xs font-mono">
-              <span className="text-gray-500">LOADING</span>
-              <span className="text-neon-cyan">{Math.min(Math.round(progress), 100)}%</span>
+              <span style={{ color: 'var(--text-muted)' }}>LOADING</span>
+              <span style={{ color: 'var(--text-primary)' }}>{Math.min(Math.round(progress), 100)}%</span>
             </div>
           </div>
 
           {/* Boot sequence messages */}
           <motion.div
-            className="absolute bottom-8 left-8 font-mono text-xs text-gray-600 space-y-1"
+            className="absolute bottom-8 left-8 font-mono text-xs space-y-1"
+            style={{ color: 'var(--text-muted)' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            {progress > 20 && <div className="text-green-500">✓ Core systems online</div>}
-            {progress > 50 && <div className="text-green-500">✓ Neural networks loaded</div>}
-            {progress > 80 && <div className="text-green-500">✓ Interface ready</div>}
+            {progress > 20 && <div style={{ color: 'var(--accent-green)' }}>✓ Core systems online</div>}
+            {progress > 50 && <div style={{ color: 'var(--accent-green)' }}>✓ Neural networks loaded</div>}
+            {progress > 80 && <div style={{ color: 'var(--accent-green)' }}>✓ Interface ready</div>}
           </motion.div>
 
           {/* Decorative corners */}
-          <div className="absolute top-4 left-4 w-16 h-16 border-l-2 border-t-2 border-neon-cyan/30" />
-          <div className="absolute top-4 right-4 w-16 h-16 border-r-2 border-t-2 border-electric-purple/30" />
-          <div className="absolute bottom-4 left-4 w-16 h-16 border-l-2 border-b-2 border-electric-purple/30" />
-          <div className="absolute bottom-4 right-4 w-16 h-16 border-r-2 border-b-2 border-neon-cyan/30" />
+          <div className="absolute top-4 left-4 w-16 h-16" style={{ borderLeft: '2px solid var(--border-hover)', borderTop: '2px solid var(--border-hover)' }} />
+          <div className="absolute top-4 right-4 w-16 h-16" style={{ borderRight: '2px solid var(--border-hover)', borderTop: '2px solid var(--border-hover)' }} />
+          <div className="absolute bottom-4 left-4 w-16 h-16" style={{ borderLeft: '2px solid var(--border-hover)', borderBottom: '2px solid var(--border-hover)' }} />
+          <div className="absolute bottom-4 right-4 w-16 h-16" style={{ borderRight: '2px solid var(--border-hover)', borderBottom: '2px solid var(--border-hover)' }} />
         </motion.div>
       )}
     </AnimatePresence>

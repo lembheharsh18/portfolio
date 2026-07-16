@@ -3,15 +3,28 @@
 @tailwind utilities;
 
 /* ============================================
-   CSS Custom Properties
+   CSS Custom Properties — Dark (default)
    ============================================ */
 :root {
   --void-black: #050505;
-  --neon-cyan: #8B5CF6;
-  --electric-purple: #14B8A6;
-  --rose-glow: #A78BFA;
-  --blush: #5EEAD4;
-  
+  --bg: #050505;
+  --bg-card: #0d0d0d;
+  --bg-card-hover: #111111;
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #555555;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --accent: #ffffff;
+  --accent-dim: rgba(255, 255, 255, 0.6);
+  --accent-green: #22c55e;
+
+  /* Legacy references kept for non-refactored sections */
+  --neon-cyan: #ffffff;
+  --electric-purple: #a0a0a0;
+  --rose-glow: #d4d4d4;
+  --blush: #e5e5e5;
+
   /* Responsive Font Sizes */
   --font-size-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
   --font-size-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
@@ -23,11 +36,37 @@
   --font-size-4xl: clamp(2.25rem, 1.75rem + 2.5vw, 3rem);
   --font-size-5xl: clamp(3rem, 2rem + 5vw, 4.5rem);
   --font-size-hero: clamp(2.5rem, 2rem + 4vw, 5rem);
-  
+
   /* Glassmorphism Variables */
   --glass-blur: 20px;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+/* ============================================
+   Light Theme
+   ============================================ */
+html.light {
+  --void-black: #f5f5f5;
+  --bg: #f5f5f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fafafa;
+  --text-primary: #0a0a0a;
+  --text-secondary: #555555;
+  --text-muted: #999999;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.2);
+  --accent: #0a0a0a;
+  --accent-dim: rgba(0, 0, 0, 0.6);
+  --accent-green: #16a34a;
+
+  --neon-cyan: #0a0a0a;
+  --electric-purple: #555555;
+  --rose-glow: #333333;
+  --blush: #444444;
+
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.08);
 }
 
 /* ============================================
@@ -45,14 +84,15 @@ html {
 }
 
 body {
-  background-color: var(--void-black);
-  color: #ffffff;
+  background-color: var(--bg);
+  color: var(--text-primary);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   font-size: var(--font-size-base);
   overflow-x: hidden;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ============================================
@@ -87,7 +127,7 @@ small, .text-sm {
 }
 
 /* ============================================
-   Glassmorphism (Consistent)
+   Glassmorphism
    ============================================ */
 .glass {
   background: var(--glass-bg);
@@ -103,6 +143,11 @@ small, .text-sm {
   border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
+html.light .glass-strong {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
 .glass-subtle {
   background: rgba(255, 255, 255, 0.02);
   backdrop-filter: blur(10px);
@@ -110,11 +155,16 @@ small, .text-sm {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+html.light .glass-subtle {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
 /* ============================================
    Gradient Text
    ============================================ */
 .gradient-text {
-  background: linear-gradient(135deg, var(--neon-cyan), var(--electric-purple));
+  background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -123,11 +173,11 @@ small, .text-sm {
 .gradient-text-animated {
   background: linear-gradient(
     270deg,
-    var(--neon-cyan),
-    var(--electric-purple),
-    var(--rose-glow),
-    var(--blush),
-    var(--neon-cyan)
+    var(--text-primary),
+    var(--text-secondary),
+    var(--text-primary),
+    var(--text-secondary),
+    var(--text-primary)
   );
   background-size: 400% 400%;
   -webkit-background-clip: text;
@@ -139,23 +189,6 @@ small, .text-sm {
 @keyframes gradient-shift {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
-}
-
-/* ============================================
-   Neon Effects
-   ============================================ */
-.neon-text-cyan {
-  text-shadow: 
-    0 0 5px var(--neon-cyan),
-    0 0 10px var(--neon-cyan),
-    0 0 20px var(--neon-cyan);
-}
-
-.neon-text-purple {
-  text-shadow: 
-    0 0 5px var(--electric-purple),
-    0 0 10px var(--electric-purple),
-    0 0 20px var(--electric-purple);
 }
 
 /* ============================================
@@ -174,10 +207,9 @@ small, .text-sm {
   border-radius: inherit;
   background: linear-gradient(
     90deg,
-    var(--neon-cyan),
-    var(--electric-purple),
-    var(--rose-glow),
-    var(--neon-cyan)
+    var(--text-primary),
+    var(--text-secondary),
+    var(--text-primary)
   );
   background-size: 200% 100%;
   animation: border-dance 4s linear infinite;
@@ -186,29 +218,12 @@ small, .text-sm {
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
+  opacity: 0.3;
 }
 
 @keyframes border-dance {
   0% { background-position: 0% 0%; }
   100% { background-position: 200% 0%; }
-}
-
-/* ============================================
-   Text Shimmer Effect
-   ============================================ */
-.text-shimmer {
-  background: linear-gradient(
-    90deg,
-    var(--neon-cyan) 0%,
-    var(--blush) 40%,
-    var(--electric-purple) 60%,
-    var(--neon-cyan) 100%
-  );
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: shimmer 3s linear infinite;
 }
 
 /* ============================================
@@ -219,28 +234,18 @@ small, .text-sm {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--void-black);
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--neon-cyan), var(--electric-purple));
+  background: linear-gradient(180deg, var(--text-secondary), var(--text-muted));
   border-radius: 3px;
 }
 
 /* Firefox scrollbar */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--neon-cyan) var(--void-black);
-}
-
-/* ============================================
-   Cyber Grid Background
-   ============================================ */
-.cyber-grid {
-  background-image: 
-    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
+  scrollbar-color: var(--text-muted) var(--bg);
 }
 
 /* ============================================
@@ -252,29 +257,29 @@ small, .text-sm {
 
 .cyber-hover:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+html.light .cyber-hover:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================================
    Selection
    ============================================ */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
+  background: rgba(255, 255, 255, 0.2);
   color: white;
+}
+
+html.light ::selection {
+  background: rgba(0, 0, 0, 0.15);
+  color: black;
 }
 
 /* ============================================
    Animations
    ============================================ */
-@keyframes glitch-skew {
-  0% { transform: skew(0deg); }
-  20% { transform: skew(-2deg); }
-  40% { transform: skew(2deg); }
-  60% { transform: skew(-1deg); }
-  80% { transform: skew(1deg); }
-  100% { transform: skew(0deg); }
-}
-
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -288,11 +293,21 @@ small, .text-sm {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(139, 92, 246, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
+}
+
+html.light .shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.04) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 @keyframes fadeIn {
@@ -332,23 +347,35 @@ small, .text-sm {
 }
 
 /* ============================================
-   Sparkle Effect
-   ============================================ */
-@keyframes sparkle-pop {
-  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-  50% { opacity: 1; transform: scale(1) rotate(180deg); }
-}
-
-/* ============================================
    Glow Breathe
    ============================================ */
 @keyframes glow-breathe {
-  0%, 100% { 
-    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.1);
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.05);
   }
-  50% { 
-    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6), 0 0 50px rgba(139, 92, 246, 0.2);
+  50% {
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 255, 255, 0.1);
   }
+}
+
+html.light {
+  --glow-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================
+   Cyber Grid Background
+   ============================================ */
+.cyber-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+html.light .cyber-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
 
 /* ============================================
@@ -358,7 +385,7 @@ small, .text-sm {
   :root {
     --glass-blur: 15px;
   }
-  
+
   section {
     padding-left: 1rem;
     padding-right: 1rem;
@@ -375,7 +402,7 @@ small, .text-sm {
    Focus Styles (Accessibility)
    ============================================ */
 :focus-visible {
-  outline: 2px solid var(--neon-cyan);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -396,15 +423,15 @@ small, .text-sm {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
+
   .shimmer {
     animation: none;
   }
-  
+
   .gradient-text-animated {
     animation: none;
   }
-  
+
   .floating-shape,
   .floating-shape-alt {
     animation: none;

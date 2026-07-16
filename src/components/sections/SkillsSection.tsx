@@ -2,94 +2,149 @@
 
 import { motion } from 'framer-motion'
 
-const skillCategories = [
+// Tech stack categories with SVG icons (using CDN URLs for tech logos)
+const techCategories = [
   {
-    title: 'Core',
-    items: ['Data Structures & Algorithms', 'Object-Oriented Programming', 'Database Management', 'Operating Systems', 'System Design'],
-    color: '#8B5CF6',
+    title: 'LANGUAGES',
+    items: [
+      { name: 'C++', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg' },
+      { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+      { name: 'SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+      { name: 'C', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg' },
+    ],
   },
   {
-    title: 'Languages',
-    items: ['Python', 'C++', 'C', 'C#', 'JavaScript', 'SQL', 'Java'],
-    color: '#14B8A6',
+    title: 'BACKEND & DATABASE',
+    items: [
+      { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+      { name: 'Express', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+      { name: 'Spring Boot', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg' },
+      { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+      { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+    ],
   },
   {
-    title: 'Frameworks & Libraries',
-    items: ['React', 'Next.js', 'Node.js', 'Express.js', 'Spring Boot', 'Flask', 'Django'],
-    color: '#A78BFA',
+    title: 'FRONTEND & FRAMEWORKS',
+    items: [
+      { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+      { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+      { name: 'Django', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg' },
+      { name: 'Flask', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg' },
+    ],
   },
   {
-    title: 'Databases & Services',
-    items: ['PostgreSQL', 'MongoDB', 'MySQL', 'Oracle', 'AWS S3', 'Pinecone'],
-    color: '#5EEAD4',
+    title: 'AI & DATA ENGINEERING',
+    items: [
+      { name: 'TensorFlow', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
+      { name: 'PyTorch', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg' },
+      { name: 'Pandas', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg' },
+      { name: 'NumPy', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg' },
+    ],
   },
   {
-    title: 'Developer Tools',
-    items: ['Docker', 'Kubernetes', 'Git', 'GitHub', 'VS Code', 'Postman', 'Vercel'],
-    color: '#6366F1',
+    title: 'TOOLS & DEPLOYMENT',
+    items: [
+      { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+      { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+      { name: 'Kubernetes', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg' },
+      { name: 'VS Code', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+    ],
   },
 ]
 
 export default function SkillsSection() {
   return (
     <section id="skills" className="relative py-24 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-neon-cyan/5 rounded-full blur-[180px]" />
-        <div className="absolute bottom-1/4 left-0 w-[500px] h-[500px] bg-electric-purple/5 rounded-full blur-[180px]" />
-      </div>
-
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="max-w-3xl mx-auto px-6 relative z-10">
         <motion.div
-          className="text-center mb-12"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="font-heading text-3xl md:text-4xl font-bold mb-3">
-            <span className="bg-gradient-to-r from-neon-cyan to-electric-purple bg-clip-text text-transparent">Skills & Technologies</span>
+          <h2 className="font-heading text-3xl md:text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>
+            Tech Stack
           </h2>
-          <p className="text-gray-500 text-sm">Technologies and tools I use to build things</p>
         </motion.div>
 
-        <div className="space-y-8">
-          {skillCategories.map((category, categoryIndex) => (
+        <div className="space-y-14">
+          {techCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}
+              className="text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: categoryIndex * 0.1 }}
             >
               <h3
-                className="text-xs font-semibold uppercase tracking-[0.2em] mb-3"
-                style={{ color: category.color }}
+                className="text-xs font-semibold uppercase tracking-[0.25em] mb-6"
+                style={{ color: 'var(--text-muted)' }}
               >
                 {category.title}
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {category.items.map((skill, skillIndex) => (
-                  <motion.span
-                    key={skill}
-                    className="px-3 py-1.5 rounded-lg text-sm border transition-all duration-300 cursor-default"
-                    style={{
-                      borderColor: `${category.color}30`,
-                      color: '#d1d5db',
-                      background: `${category.color}08`,
-                    }}
+
+              <div className="flex flex-wrap justify-center gap-4">
+                {category.items.map((tech, techIndex) => (
+                  <motion.div
+                    key={tech.name}
+                    className="group relative"
                     initial={{ opacity: 0, scale: 0.8, y: 10 }}
                     whileInView={{ opacity: 1, scale: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: categoryIndex * 0.1 + skillIndex * 0.04, type: 'spring', stiffness: 200 }}
-                    whileHover={{
-                      borderColor: `${category.color}80`,
-                      background: `${category.color}15`,
-                      scale: 1.08,
-                      y: -3,
-                      rotate: Math.random() > 0.5 ? 2 : -2,
+                    transition={{
+                      delay: categoryIndex * 0.1 + techIndex * 0.05,
+                      type: 'spring',
+                      stiffness: 200,
                     }}
                   >
-                    {skill}
-                  </motion.span>
+                    <motion.div
+                      className="w-16 h-16 md:w-[72px] md:h-[72px] rounded-xl flex items-center justify-center cursor-default transition-all duration-300"
+                      style={{
+                        border: '1px solid var(--border)',
+                        background: 'var(--bg-card)',
+                      }}
+                      whileHover={{
+                        scale: 1.12,
+                        y: -5,
+                        borderColor: 'var(--border-hover)',
+                      }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={tech.icon}
+                        alt={tech.name}
+                        className="w-8 h-8 md:w-9 md:h-9"
+                        loading="lazy"
+                        onError={(e) => {
+                          // Fallback: show text
+                          const el = e.target as HTMLImageElement
+                          el.style.display = 'none'
+                          const parent = el.parentElement
+                          if (parent) {
+                            const span = document.createElement('span')
+                            span.textContent = tech.name.slice(0, 2)
+                            span.style.fontSize = '14px'
+                            span.style.fontWeight = '700'
+                            span.style.color = 'var(--text-secondary)'
+                            parent.appendChild(span)
+                          }
+                        }}
+                      />
+                    </motion.div>
+
+                    {/* Tooltip */}
+                    <div
+                      className="absolute -bottom-7 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded text-[10px] font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                      style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
+                    >
+                      {tech.name}
+                    </div>
+                  </motion.div>
                 ))}
               </div>
             </motion.div>

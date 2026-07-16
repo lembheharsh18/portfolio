@@ -7,21 +7,33 @@ export async function GET(
   const { username } = params
 
   try {
-    const [profileRes, solvedRes, contestRes] = await Promise.all([
+    const [profileRes, solvedRes, contestRes, recentRes] = await Promise.all([
       fetch(`https://alfa-leetcode-api.onrender.com/${username}`),
       fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`),
       fetch(`https://alfa-leetcode-api.onrender.com/${username}/contest`),
+      fetch(`https://alfa-leetcode-api.onrender.com/${username}/submission?limit=5`),
     ])
 
     if (!profileRes.ok) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    const [profile, solved, contest] = await Promise.all([
+    const [profile, solved, contest, recent] = await Promise.all([
       profileRes.json(),
       solvedRes.json(),
       contestRes.json(),
+      recentRes.ok ? recentRes.json() : { submission: [] },
     ])
+
+    // Parse recent submissions
+    const recentSubmissions = (recent.submission || [])
+      .filter((s: any) => s.statusDisplay === 'Accepted')
+      .slice(0, 5)
+      .map((s: any) => ({
+        title: s.title,
+        timestamp: s.timestamp ? parseInt(s.timestamp) : null,
+        lang: s.lang,
+      }))
 
     return NextResponse.json({
       username: profile.username,
@@ -48,6 +60,7 @@ export async function GET(
         problemsSolved: c.problemsSolved,
         totalProblems: c.totalProblems,
       })),
+      recentSubmissions,
     })
   } catch (error) {
     return NextResponse.json({ error: 'Failed to fetch LeetCode data' }, { status: 500 })

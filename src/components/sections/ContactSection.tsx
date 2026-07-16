@@ -130,8 +130,7 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Basic validation
+
     if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setFormError('Please fill in all fields')
       return
@@ -145,22 +144,19 @@ export default function ContactSection() {
     setFormStatus('loading')
 
     try {
-      // Formspree integration — Replace YOUR_FORM_ID with your actual Formspree form ID
-      // Sign up at https://formspree.io and create a form to get your ID
       const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       })
-      
+
       if (response.ok) {
         setFormStatus('success')
         setFormData({ name: '', email: '', message: '' })
       } else {
         throw new Error('Form submission failed')
       }
-      
-      // Reset status after 5 seconds
+
       setTimeout(() => setFormStatus('idle'), 5000)
     } catch {
       setFormStatus('error')
@@ -171,11 +167,6 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-neon-cyan/5 rounded-full blur-[200px]" />
-      </div>
-
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* Section Header */}
         <motion.div
@@ -185,13 +176,13 @@ export default function ContactSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-neon-cyan text-sm uppercase tracking-[0.3em] mb-4 block">
+          <span className="text-sm uppercase tracking-[0.3em] mb-4 block" style={{ color: 'var(--text-muted)' }}>
             Let's Talk
           </span>
           <h2 className="font-heading text-4xl md:text-5xl font-bold mb-4">
             <span className="gradient-text">Get In Touch</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto">
+          <p style={{ color: 'var(--text-secondary)' }} className="max-w-xl mx-auto">
             Have a project in mind? Let's create something amazing together.
           </p>
         </motion.div>
@@ -205,11 +196,11 @@ export default function ContactSection() {
             transition={{ duration: 0.6 }}
           >
             <form onSubmit={handleSubmit} className="glass rounded-2xl p-8">
-              <h3 className="font-heading text-xl font-semibold mb-6 text-white">Send a Message</h3>
-              
+              <h3 className="font-heading text-xl font-semibold mb-6" style={{ color: 'var(--text-primary)' }}>Send a Message</h3>
+
               {/* Name Input */}
               <div className="mb-5">
-                <label htmlFor="name" className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="name" className="block text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
                   Your Name
                 </label>
                 <input
@@ -218,7 +209,12 @@ export default function ContactSection() {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all"
+                  className="w-full px-4 py-3 rounded-xl text-sm placeholder-gray-500 focus:outline-none transition-all"
+                  style={{
+                    background: 'var(--bg)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-primary)',
+                  }}
                   placeholder="John Doe"
                   disabled={formStatus === 'loading'}
                 />
@@ -226,7 +222,7 @@ export default function ContactSection() {
 
               {/* Email Input */}
               <div className="mb-5">
-                <label htmlFor="email" className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="email" className="block text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
                   Email Address
                 </label>
                 <input
@@ -235,7 +231,12 @@ export default function ContactSection() {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all"
+                  className="w-full px-4 py-3 rounded-xl text-sm placeholder-gray-500 focus:outline-none transition-all"
+                  style={{
+                    background: 'var(--bg)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-primary)',
+                  }}
                   placeholder="john@example.com"
                   disabled={formStatus === 'loading'}
                 />
@@ -243,7 +244,7 @@ export default function ContactSection() {
 
               {/* Message Input */}
               <div className="mb-6">
-                <label htmlFor="message" className="block text-sm text-gray-400 mb-2">
+                <label htmlFor="message" className="block text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
                   Message
                 </label>
                 <textarea
@@ -252,7 +253,12 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleInputChange}
                   rows={5}
-                  className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-neon-cyan/50 focus:outline-none focus:ring-1 focus:ring-neon-cyan/50 transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl text-sm placeholder-gray-500 focus:outline-none transition-all resize-none"
+                  style={{
+                    background: 'var(--bg)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-primary)',
+                  }}
                   placeholder="Tell me about your project..."
                   disabled={formStatus === 'loading'}
                 />
@@ -286,7 +292,11 @@ export default function ContactSection() {
               <motion.button
                 type="submit"
                 disabled={formStatus === 'loading'}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-electric-purple text-void font-semibold flex items-center justify-center gap-2 hover:shadow-neon-cyan transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                style={{
+                  background: 'var(--text-primary)',
+                  color: 'var(--bg)',
+                }}
                 whileHover={{ scale: formStatus === 'loading' ? 1 : 1.02 }}
                 whileTap={{ scale: formStatus === 'loading' ? 1 : 0.98 }}
               >
@@ -321,9 +331,9 @@ export default function ContactSection() {
               onMouseEnter={() => setIsMouseInArea(true)}
               onMouseLeave={() => setIsMouseInArea(false)}
             >
-              <div className="absolute inset-0 rounded-full border border-white/5" />
-              <div className="absolute inset-6 rounded-full border border-white/5" />
-              <div className="absolute inset-12 rounded-full border border-neon-cyan/10" />
+              <div className="absolute inset-0 rounded-full" style={{ border: '1px solid var(--border)' }} />
+              <div className="absolute inset-6 rounded-full" style={{ border: '1px solid var(--border)' }} />
+              <div className="absolute inset-12 rounded-full" style={{ border: '1px solid var(--border-hover)' }} />
 
               <div className="absolute inset-0 flex items-center justify-center">
                 <span className="font-heading text-xl font-bold gradient-text">Connect</span>
@@ -342,8 +352,8 @@ export default function ContactSection() {
                   }}
                   whileHover={{ scale: 1.2 }}
                 >
-                  <icon.icon className="w-5 h-5 text-white group-hover:text-neon-cyan transition-colors" />
-                  <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  <icon.icon className="w-5 h-5 group-hover:opacity-70 transition-opacity" style={{ color: 'var(--text-primary)' }} />
+                  <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap" style={{ color: 'var(--text-muted)' }}>
                     {icon.label}
                   </span>
                 </motion.a>
@@ -354,26 +364,26 @@ export default function ContactSection() {
             <div className="space-y-4 w-full max-w-sm">
               <a
                 href="mailto:lembheharsh0508@gmail.com"
-                className="flex items-center gap-4 p-4 glass rounded-xl hover:border-neon-cyan/30 transition-all group"
+                className="flex items-center gap-4 p-4 glass rounded-xl transition-all group"
               >
-                <div className="w-10 h-10 rounded-lg bg-neon-cyan/10 flex items-center justify-center">
-                  <Mail className="w-5 h-5 text-neon-cyan" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--border)' }}>
+                  <Mail className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Email</p>
-                  <p className="text-gray-300 group-hover:text-neon-cyan transition-colors">
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Email</p>
+                  <p className="group-hover:opacity-70 transition-opacity" style={{ color: 'var(--text-primary)' }}>
                     lembheharsh0508@gmail.com
                   </p>
                 </div>
               </a>
 
               <div className="flex items-center gap-4 p-4 glass rounded-xl">
-                <div className="w-10 h-10 rounded-lg bg-electric-purple/10 flex items-center justify-center">
-                  <Phone className="w-5 h-5 text-electric-purple" />
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'var(--border)' }}>
+                  <Phone className="w-5 h-5" style={{ color: 'var(--text-secondary)' }} />
                 </div>
                 <div>
-                  <p className="text-xs text-gray-500">Phone</p>
-                  <p className="text-gray-300">+91 8625923006</p>
+                  <p className="text-xs" style={{ color: 'var(--text-muted)' }}>Phone</p>
+                  <p style={{ color: 'var(--text-primary)' }}>+91 8625923006</p>
                 </div>
               </div>
             </div>

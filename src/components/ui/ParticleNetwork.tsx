@@ -23,17 +23,27 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
   const animationRef = useRef<number>()
   const timeRef = useRef(0)
 
+  const getTheme = useCallback(() => {
+    if (typeof document === 'undefined') return 'dark'
+    return document.documentElement.classList.contains('light') ? 'light' : 'dark'
+  }, [])
+
   const initParticles = useCallback((width: number, height: number) => {
-    const particleCount = Math.floor((width * height) / 15000)
+    const isLight = getTheme() === 'light'
+    // Light mode: very few particles; Dark mode: normal density
+    const density = isLight ? 40000 : 15000
+    const particleCount = Math.floor((width * height) / density)
     const particles: Particle[] = []
 
     for (let i = 0; i < particleCount; i++) {
-      const baseRadius = Math.random() * 2 + 1
+      const baseRadius = isLight
+        ? Math.random() * 1.5 + 0.5
+        : Math.random() * 2 + 1
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * (isLight ? 0.2 : 0.5),
+        vy: (Math.random() - 0.5) * (isLight ? 0.2 : 0.5),
         radius: baseRadius,
         baseRadius,
         pulseOffset: Math.random() * Math.PI * 2,
@@ -41,7 +51,7 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
     }
 
     particlesRef.current = particles
-  }, [])
+  }, [getTheme])
 
   const drawParticles = useCallback((ctx: CanvasRenderingContext2D, width: number, height: number) => {
     ctx.clearRect(0, 0, width, height)
@@ -49,8 +59,18 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
 
     const particles = particlesRef.current
     const mouse = mouseRef.current
-    const connectionDistance = 150
-    const mouseConnectionDistance = 200
+    const isLight = getTheme() === 'light'
+
+    const connectionDistance = isLight ? 120 : 150
+    const mouseConnectionDistance = isLight ? 150 : 200
+
+    // Colors based on theme
+    const dotColor = isLight ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.6)'
+    const lineColor = isLight ? 'rgba(0, 0, 0,' : 'rgba(255, 255, 255,'
+    const sparkleColor = isLight ? 'rgba(0, 0, 0, 0.15)' : 'rgba(255, 255, 255, 0.3)'
+    const mouseLineStart = isLight ? 'rgba(0, 0, 0,' : 'rgba(255, 255, 255,'
+    const mouseLineEnd = isLight ? 'rgba(80, 80, 80,' : 'rgba(200, 200, 200,'
+    const glowColor = isLight ? 'rgba(0, 0, 0,' : 'rgba(255, 255, 255,'
 
     // Update and draw particles
     particles.forEach((particle, i) => {
@@ -58,8 +78,8 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       particle.x += particle.vx
       particle.y += particle.vy
 
-      // Breathing effect — particles gently pulse in size
-      particle.radius = particle.baseRadius + Math.sin(timeRef.current * 2 + particle.pulseOffset) * 0.5
+      // Breathing effect
+      particle.radius = particle.baseRadius + Math.sin(timeRef.current * 2 + particle.pulseOffset) * 0.3
 
       // Bounce off walls
       if (particle.x < 0 || particle.x > width) particle.vx *= -1
@@ -69,17 +89,17 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       particle.x = Math.max(0, Math.min(width, particle.x))
       particle.y = Math.max(0, Math.min(height, particle.y))
 
-      // Draw particle with pink glow
+      // Draw particle
       ctx.beginPath()
       ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-      ctx.fillStyle = 'rgba(139, 92, 246, 0.6)'
+      ctx.fillStyle = dotColor
       ctx.fill()
 
-      // Occasional sparkle flash
-      if (Math.sin(timeRef.current * 3 + particle.pulseOffset * 5) > 0.97) {
+      // Occasional sparkle flash (subtle in light mode)
+      if (!isLight && Math.sin(timeRef.current * 3 + particle.pulseOffset * 5) > 0.97) {
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.radius * 3, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(167, 139, 250, 0.3)'
+        ctx.fillStyle = sparkleColor
         ctx.fill()
       }
 
@@ -91,12 +111,12 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
         const distance = Math.sqrt(dx * dx + dy * dy)
 
         if (distance < connectionDistance) {
-          const opacity = (1 - distance / connectionDistance) * 0.3
+          const opacity = (1 - distance / connectionDistance) * (isLight ? 0.12 : 0.25)
           ctx.beginPath()
           ctx.moveTo(particle.x, particle.y)
           ctx.lineTo(other.x, other.y)
-          ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`
-          ctx.lineWidth = 0.5
+          ctx.strokeStyle = `${lineColor}${opacity})`
+          ctx.lineWidth = isLight ? 0.3 : 0.5
           ctx.stroke()
         }
       }
@@ -107,27 +127,26 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       const mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy)
 
       if (mouseDistance < mouseConnectionDistance && mouse.x > 0 && mouse.y > 0) {
-        const opacity = (1 - mouseDistance / mouseConnectionDistance) * 0.8
+        const opacity = (1 - mouseDistance / mouseConnectionDistance) * (isLight ? 0.3 : 0.7)
         ctx.beginPath()
         ctx.moveTo(particle.x, particle.y)
         ctx.lineTo(mouse.x, mouse.y)
-        
-        // Gradient from pink to coral
+
         const gradient = ctx.createLinearGradient(particle.x, particle.y, mouse.x, mouse.y)
-        gradient.addColorStop(0, `rgba(139, 92, 246, ${opacity})`)
-        gradient.addColorStop(1, `rgba(20, 184, 166, ${opacity})`)
+        gradient.addColorStop(0, `${mouseLineStart}${opacity})`)
+        gradient.addColorStop(1, `${mouseLineEnd}${opacity})`)
         ctx.strokeStyle = gradient
-        ctx.lineWidth = 1
+        ctx.lineWidth = isLight ? 0.5 : 1
         ctx.stroke()
 
         // Draw glow at connection point
         ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.radius * 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(139, 92, 246, ${opacity * 0.5})`
+        ctx.arc(particle.x, particle.y, particle.radius * 1.8, 0, Math.PI * 2)
+        ctx.fillStyle = `${glowColor}${opacity * 0.4})`
         ctx.fill()
       }
     })
-  }, [])
+  }, [getTheme])
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -155,6 +174,12 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
     window.addEventListener('mousemove', handleMouseMove)
     window.addEventListener('mouseleave', handleMouseLeave)
 
+    // Watch for theme changes
+    const observer = new MutationObserver(() => {
+      initParticles(canvas.width, canvas.height)
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
     const animate = () => {
       drawParticles(ctx, canvas.width, canvas.height)
       animationRef.current = requestAnimationFrame(animate)
@@ -166,6 +191,7 @@ export default function ParticleNetwork({ className = '' }: ParticleNetworkProps
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('mouseleave', handleMouseLeave)
+      observer.disconnect()
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }

@@ -3,6 +3,7 @@ import { DM_Sans, Syne } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import ScrollToTop from '@/components/ui/ScrollToTop'
+import ThemeProvider from '@/components/ThemeProvider'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -73,14 +74,25 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${syne.variable}`}>
+    <html lang="en" className={`${dmSans.variable} ${syne.variable}`} suppressHydrationWarning>
       <head>
         <link rel="manifest" href="/site.webmanifest" />
+        {/* Prevent flash of wrong theme */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            try {
+              const theme = localStorage.getItem('theme');
+              if (theme === 'light') document.documentElement.classList.add('light');
+            } catch(e) {}
+          `
+        }} />
       </head>
-      <body className="bg-void text-white antialiased">
-        <Navbar />
-        <main>{children}</main>
-        <ScrollToTop />
+      <body className="antialiased" style={{ backgroundColor: 'var(--bg)', color: 'var(--text-primary)' }}>
+        <ThemeProvider>
+          <Navbar />
+          <main>{children}</main>
+          <ScrollToTop />
+        </ThemeProvider>
       </body>
     </html>
   )

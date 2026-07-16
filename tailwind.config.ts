@@ -14,6 +14,10 @@ const config: Config = {
         'electric-purple': '#14B8A6',
         'rose-glow': '#A78BFA',
         'blush': '#5EEAD4',
+        // Monochrome accent for the new theme
+        accent: '#ffffff',
+        'accent-dim': 'rgba(255,255,255,0.7)',
+        'accent-muted': 'rgba(255,255,255,0.4)',
       },
       fontFamily: {
         heading: ['var(--font-syne)', 'system-ui', 'sans-serif'],
@@ -21,11 +25,11 @@ const config: Config = {
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'cyber-gradient': 'linear-gradient(135deg, #8B5CF6 0%, #14B8A6 100%)',
+        'cyber-gradient': 'linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%)',
       },
       boxShadow: {
-        'neon-cyan': '0 0 20px rgba(139, 92, 246, 0.5), 0 0 40px rgba(139, 92, 246, 0.3)',
-        'neon-purple': '0 0 20px rgba(20, 184, 166, 0.5), 0 0 40px rgba(20, 184, 166, 0.3)',
+        'neon-cyan': '0 0 20px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.08)',
+        'neon-purple': '0 0 20px rgba(255, 255, 255, 0.15), 0 0 40px rgba(255, 255, 255, 0.08)',
         'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
       },
       animation: {
@@ -47,8 +51,8 @@ const config: Config = {
           '50%': { transform: 'translateY(-20px)' },
         },
         'glow-breathe': {
-          '0%, 100%': { boxShadow: '0 0 15px rgba(139, 92, 246, 0.3), 0 0 30px rgba(139, 92, 246, 0.1)' },
-          '50%': { boxShadow: '0 0 25px rgba(139, 92, 246, 0.6), 0 0 50px rgba(139, 92, 246, 0.2)' },
+          '0%, 100%': { boxShadow: '0 0 15px rgba(255, 255, 255, 0.1), 0 0 30px rgba(255, 255, 255, 0.05)' },
+          '50%': { boxShadow: '0 0 25px rgba(255, 255, 255, 0.2), 0 0 50px rgba(255, 255, 255, 0.1)' },
         },
         'gradient-shift': {
           '0%, 100%': { backgroundPosition: '0% 50%' },
