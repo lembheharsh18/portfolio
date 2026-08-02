@@ -15,7 +15,7 @@ const footerLinks = [
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/lembheharsh18', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/lembheharsh18', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://linkedin.com/in/harsh-lembhe-53b900277', label: 'LinkedIn' },
   { icon: Mail, href: 'mailto:lembheharsh0508@gmail.com', label: 'Email' },
 ]
 

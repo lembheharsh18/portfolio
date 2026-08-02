@@ -157,7 +157,7 @@ export default function HeroSection() {
           {/* Social icons top-right */}
           <div className="absolute top-6 right-6 md:right-8 flex items-center gap-2">
             {[
-              { icon: Linkedin, href: 'https://linkedin.com/in/lembheharsh18', label: 'LinkedIn' },
+              { icon: Linkedin, href: 'https://linkedin.com/in/harsh-lembhe-53b900277', label: 'LinkedIn' },
               { icon: Zap, href: 'https://leetcode.com/u/harsh_lembhe18', label: 'LeetCode' },
               { icon: BarChart3, href: 'https://codeforces.com/profile/Harsh_Lembhe18', label: 'Codeforces' },
               { icon: Github, href: 'https://github.com/lembheharsh18', label: 'GitHub' },
@@ -183,7 +183,7 @@ export default function HeroSection() {
             {/* Profile photo */}
             <div className="w-28 h-28 md:w-32 md:h-32 rounded-xl overflow-hidden shrink-0" style={{ border: '1px solid var(--border)' }}>
               <img
-                src="/pfp.png"
+                src="/pfp.jpg"
                 alt="Harsh Lembhe"
                 className="w-full h-full object-cover"
                 onError={(e) => {

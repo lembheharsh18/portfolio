@@ -18,7 +18,7 @@ const syne = Syne({
 export const metadata: Metadata = {
   metadataBase: new URL('https://harshlembhe.dev'),
   title: 'Harsh Lembhe | Full Stack Developer & Competitive Programmer',
-  description: 'Full Stack Developer & AI enthusiast specializing in RAG pipelines, enterprise backends, and competitive programming. Codeforces Expert (1711), LeetCode Knight (Top 2.3%). B.E. AI & Data Science at PICT, Pune.',
+  description: 'Full Stack Developer & AI enthusiast specializing in RAG pipelines, enterprise backends, and competitive programming. Codeforces Expert (1718), LeetCode Knight (1285+ solved). B.E. AI & Data Science at PICT, Pune.',
   keywords: ['Full Stack Developer', 'Competitive Programmer', 'React', 'Next.js', 'Spring Boot', 'RAG', 'Codeforces Expert', 'LeetCode Knight', 'PICT Pune', 'AI Data Science'],
   authors: [{ name: 'Harsh Lembhe' }],
   creator: 'Harsh Lembhe',

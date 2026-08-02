@@ -23,13 +23,13 @@ interface GitHubData {
 
 // ── Fallback data ──
 const FALLBACK_LC: LeetCodeData = {
-  username: 'harsh_lembhe18', totalSolved: 1124, easySolved: 257, mediumSolved: 677, hardSolved: 190,
-  contestRating: 2068, contestAttend: 46, contestGlobalRanking: 14827, contestTopPercentage: 1.77, contestBadge: 'Knight',
+  username: 'harsh_lembhe18', totalSolved: 1285, easySolved: 284, mediumSolved: 740, hardSolved: 261,
+  contestRating: 2068, contestAttend: 46, contestGlobalRanking: 13558, contestTopPercentage: 1.77, contestBadge: 'Knight',
   contestHistory: [], recentSubmissions: []
 }
 const FALLBACK_CF: CodeforcesData = {
-  handle: 'Harsh_Lembhe18', rating: 1607, maxRating: 1713, rank: 'expert', maxRank: 'expert',
-  contestsParticipated: 47, contribution: 2, ratingHistory: []
+  handle: 'Harsh_Lembhe18', rating: 1718, maxRating: 1737, rank: 'expert', maxRank: 'expert',
+  contestsParticipated: 97, contribution: 2, ratingHistory: []
 }
 const FALLBACK_GH: GitHubData = {
   username: 'lembheharsh18', latestRepo: 'portfolio', yearlyCommits: 405,

@@ -69,7 +69,7 @@ export default function AboutSection() {
 
               {/* Profile Image Container */}
               <div className="relative w-64 h-80 md:w-72 md:h-96 rounded-2xl overflow-hidden">
-                <img src="/pfp.png" alt="Harsh Lembhe" className="w-full h-full object-cover" />
+                <img src="/pfp.jpg" alt="Harsh Lembhe" className="w-full h-full object-cover" />
 
                 {/* Overlay gradient */}
                 <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, var(--bg) 0%, transparent 50%)' }} />
@@ -143,8 +143,9 @@ export default function AboutSection() {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <motion.a
-                  href="/resume.pdf"
-                  download
+                  href="https://drive.google.com/file/d/1TXls3hGzvF8zDJfmWypLkaFg3OQJB2SC/view?usp=sharing"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300"
                   style={{
                     background: 'var(--text-primary)',
@@ -152,10 +153,10 @@ export default function AboutSection() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  data-cursor="Download"
+                  data-cursor="View"
                 >
                   <Download className="w-4 h-4" />
-                  Download Resume
+                  View Resume
                 </motion.a>
                 <motion.a
                   href="#contact"
