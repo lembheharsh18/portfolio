@@ -3,11 +3,9 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import ParticleNetwork from '@/components/ui/ParticleNetwork'
-import { useTheme } from '@/components/ThemeProvider'
-import { ChevronDown, Github, Linkedin, Mail, Sun, Moon, Zap, BarChart3, Terminal } from 'lucide-react'
+import { ChevronDown, Github, Linkedin, Mail, Zap, BarChart3, Terminal } from 'lucide-react'
 
 export default function HeroSection() {
-  const { theme, toggleTheme } = useTheme()
   const [time, setTime] = useState<string>('')
   const [lastSolved, setLastSolved] = useState<string>('Loading...')
   const [currentlyBuilding, setCurrentlyBuilding] = useState<string>('Loading...')
@@ -80,28 +78,7 @@ export default function HeroSection() {
         </div>
       </motion.div>
 
-      {/* Top-right controls */}
-      <motion.div
-        className="absolute top-6 right-6 z-20 flex items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-      >
-        <button
-          onClick={toggleTheme}
-          className="w-8 h-8 rounded-full flex items-center justify-center transition-colors"
-          style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-        </button>
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold"
-          style={{ border: '1px solid var(--border)', color: 'var(--text-secondary)' }}
-        >
-          EN
-        </div>
-      </motion.div>
+
 
       {/* Main content */}
       <div className="relative z-10 w-full max-w-2xl mx-auto px-6 flex flex-col items-center">

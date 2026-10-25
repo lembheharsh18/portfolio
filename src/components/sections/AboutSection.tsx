@@ -143,9 +143,8 @@ export default function AboutSection() {
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-4">
                 <motion.a
-                  href="https://drive.google.com/file/d/1TXls3hGzvF8zDJfmWypLkaFg3OQJB2SC/view?usp=sharing"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/resume.pdf"
+                  download="Harsh_Lembhe_Resume.pdf"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300"
                   style={{
                     background: 'var(--text-primary)',
@@ -153,10 +152,10 @@ export default function AboutSection() {
                   }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  data-cursor="View"
+                  data-cursor="Download"
                 >
                   <Download className="w-4 h-4" />
-                  View Resume
+                  Download Resume
                 </motion.a>
                 <motion.a
                   href="#contact"

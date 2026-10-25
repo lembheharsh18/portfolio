@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import ScrollToTop from '@/components/ui/ScrollToTop'
 import ThemeProvider from '@/components/ThemeProvider'
+import SpotifyWidget from '@/components/ui/SpotifyWidget'
 
 const dmSans = DM_Sans({
   subsets: ['latin'],
@@ -91,6 +92,7 @@ export default function RootLayout({
         <ThemeProvider>
           <Navbar />
           <main>{children}</main>
+          <SpotifyWidget />
           <ScrollToTop />
         </ThemeProvider>
       </body>

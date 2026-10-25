@@ -2,8 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
+import { Sun, Moon, Download } from 'lucide-react'
+import { useTheme } from '@/components/ThemeProvider'
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme()
   const [isScrolled, setIsScrolled] = useState(false)
 
   useEffect(() => {
@@ -62,23 +65,44 @@ export default function Navbar() {
           />
         </motion.a>
 
-        {/* Resume Button */}
-        <motion.a
-          href="/resume.pdf"
-          download
-          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm transition-colors"
-          style={{
-            border: '1px solid var(--border-hover)',
-            color: 'var(--text-primary)',
-          }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          Resume
-        </motion.a>
+        {/* Right Controls */}
+        <div className="flex items-center gap-3">
+          {/* Theme Toggle Button */}
+          <motion.button
+            onClick={toggleTheme}
+            className="w-9 h-9 rounded-full flex items-center justify-center transition-colors cursor-pointer"
+            style={{
+              border: '1px solid var(--border-hover)',
+              color: 'var(--text-primary)',
+              background: 'var(--bg-card)',
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Toggle theme"
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </motion.button>
+
+          {/* Resume Button */}
+          <motion.a
+            href="/resume.pdf"
+            download="Harsh_Lembhe_Resume.pdf"
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors"
+            style={{
+              border: '1px solid var(--border-hover)',
+              color: 'var(--text-primary)',
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="w-3.5 h-3.5" />
+            Resume
+          </motion.a>
+        </div>
       </nav>
     </motion.header>
   )

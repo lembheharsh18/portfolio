@@ -108,8 +108,8 @@ export default function CustomCursor() {
             top: dot.y - 2,
             width: 4,
             height: 4,
-            background: `rgba(180, 180, 180, ${dot.opacity})`,
-            boxShadow: `0 0 6px rgba(200, 200, 200, ${dot.opacity * 0.3})`,
+            background: `rgba(var(--glow-rgb), ${dot.opacity * 0.4})`,
+            boxShadow: `0 0 6px rgba(var(--glow-rgb), ${dot.opacity * 0.25})`,
             transition: 'opacity 0.1s',
           }}
         />
@@ -139,11 +139,11 @@ export default function CustomCursor() {
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              border: isHovering ? '1px solid rgba(255, 255, 255, 0.5)' : '1px solid rgba(255, 255, 255, 0.2)',
+              border: isHovering ? '1px solid rgba(var(--glow-rgb), 0.5)' : '1px solid rgba(var(--glow-rgb), 0.25)',
               background: isHovering
-                ? 'radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%)'
+                ? 'radial-gradient(circle, rgba(var(--glow-rgb), 0.08) 0%, transparent 70%)'
                 : 'transparent',
-              boxShadow: isHovering ? '0 0 15px rgba(255, 255, 255, 0.15)' : 'none',
+              boxShadow: isHovering ? '0 0 15px rgba(var(--glow-rgb), 0.15)' : 'none',
               transition: 'all 0.3s ease',
             }}
           />
@@ -154,7 +154,7 @@ export default function CustomCursor() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
-              className="text-[10px] font-medium uppercase tracking-wider"
+              className="text-[10px] font-medium uppercase tracking-wider font-mono font-semibold"
               style={{ color: 'var(--text-primary)' }}
             >
               {hoverText}
@@ -183,12 +183,8 @@ export default function CustomCursor() {
           transition={{ duration: 0.15 }}
           className="rounded-full"
           style={{
-            background: isHovering
-              ? 'rgba(255, 255, 255, 0.9)'
-              : 'linear-gradient(135deg, rgba(255,255,255,0.9), rgba(180,180,180,0.9))',
-            boxShadow: isHovering
-              ? '0 0 10px rgba(255, 255, 255, 0.4)'
-              : '0 0 8px rgba(255, 255, 255, 0.3)',
+            background: 'var(--text-primary)',
+            boxShadow: '0 0 10px rgba(var(--glow-rgb), 0.4)',
           }}
         />
       </motion.div>
